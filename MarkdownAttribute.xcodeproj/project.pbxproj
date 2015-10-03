@@ -75,6 +75,7 @@
 		CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPlatformDefines.h; sourceTree = "<group>"; };
 		CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextAttributes.h; sourceTree = "<group>"; };
 		CD556E301BC01E3C0006C03F /* CMTextAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTextAttributes.m; sourceTree = "<group>"; };
+		CD556E351BC028770006C03F /* MarkdownExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MarkdownExample.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 		CD556DB81BC0106C0006C03F = {
 			isa = PBXGroup;
 			children = (
+				CD556E351BC028770006C03F /* MarkdownExample.playground */,
 				CD556DC41BC0106C0006C03F /* MarkdownAttribute */,
 				CD556DD01BC0106C0006C03F /* MarkdownAttributeTests */,
 				CD556DC31BC0106C0006C03F /* Products */,

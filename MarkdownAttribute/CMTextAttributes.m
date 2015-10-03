@@ -9,7 +9,7 @@
 #import "CMTextAttributes.h"
 #import "CMPlatformDefines.h"
 
-static NSDictionary * CMDefaultTextAttributes()
+static NSDictionary<NSString*,id> * CMDefaultTextAttributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody]};
@@ -18,7 +18,7 @@ static NSDictionary * CMDefaultTextAttributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH1Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH1Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
@@ -27,7 +27,7 @@ static NSDictionary * CMDefaultH1Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH2Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH2Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
@@ -36,7 +36,7 @@ static NSDictionary * CMDefaultH2Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH3Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH3Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]};
@@ -45,7 +45,7 @@ static NSDictionary * CMDefaultH3Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH4Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH4Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]};
@@ -54,7 +54,7 @@ static NSDictionary * CMDefaultH4Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH5Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH5Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]};
@@ -63,7 +63,7 @@ static NSDictionary * CMDefaultH5Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultH6Attributes()
+static NSDictionary<NSString*,id> * CMDefaultH6Attributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]};
@@ -72,7 +72,7 @@ static NSDictionary * CMDefaultH6Attributes()
 #endif
 }
 
-static NSDictionary * CMDefaultLinkAttributes()
+static NSDictionary<NSString*,id> * CMDefaultLinkAttributes()
 {
     return @{
 #if TARGET_OS_IPHONE
@@ -100,7 +100,7 @@ static NSParagraphStyle * DefaultIndentedParagraphStyle()
     return style;
 }
 
-static NSDictionary * CMDefaultCodeBlockAttributes()
+static NSDictionary<NSString*,id> * CMDefaultCodeBlockAttributes()
 {
     return @{
 #if TARGET_OS_IPHONE
@@ -112,7 +112,7 @@ static NSDictionary * CMDefaultCodeBlockAttributes()
     };
 }
 
-static NSDictionary * CMDefaultInlineCodeAttributes()
+static NSDictionary<NSString*,id> * CMDefaultInlineCodeAttributes()
 {
 #if TARGET_OS_IPHONE
     return @{NSFontAttributeName: MonospaceFont()};
@@ -121,17 +121,17 @@ static NSDictionary * CMDefaultInlineCodeAttributes()
 #endif
 }
 
-static NSDictionary * CMDefaultBlockQuoteAttributes()
+static NSDictionary<NSString*,id> * CMDefaultBlockQuoteAttributes()
 {
     return @{NSParagraphStyleAttributeName: DefaultIndentedParagraphStyle()};
 }
 
-static NSDictionary * CMDefaultOrderedListAttributes()
+static NSDictionary<NSString*,id> * CMDefaultOrderedListAttributes()
 {
     return @{NSParagraphStyleAttributeName: DefaultIndentedParagraphStyle()};
 }
 
-static NSDictionary * CMDefaultUnorderedListAttributes()
+static NSDictionary<NSString*,id> * CMDefaultUnorderedListAttributes()
 {
     return @{NSParagraphStyleAttributeName: DefaultIndentedParagraphStyle()};
 }

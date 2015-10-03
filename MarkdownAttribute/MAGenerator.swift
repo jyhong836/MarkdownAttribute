@@ -49,10 +49,10 @@ class MAGenerator {
     }
     
     private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, document: MMDocument, inout location: UInt) {
-        let attribute  = attributesForElement(element)
+        let (attribute, newLine) = attributesForElement(element)
         let startIdx = astr.length
         
-        for child in element.children {
+        for child in element.children as! [MMElement] {
             if child.type == MMElementTypeNone {
                 if document.markdown.isEmpty {
                     astr.appendAttributedString(NSAttributedString(string: "\n"))
@@ -62,7 +62,7 @@ class MAGenerator {
             } else if (child.type == MMElementTypeHTML) {
                 astr.appendAttributedString(NSAttributedString(string: NSString(string: document.markdown).substringWithRange(child.range)))
             } else {
-                generate(attributedString: astr, element: element, document: document, location: &location)
+                generate(attributedString: astr, element: child, document: document, location: &location)
             }
         }
         
@@ -70,16 +70,37 @@ class MAGenerator {
         if let attr = attribute {
             astr.setAttributes(attr, range: NSMakeRange(startIdx, endIdx - startIdx))
         }
+        if newLine {
+            astr.appendAttributedString(NSAttributedString(string: "\n"))
+        }
     }
     
-    let cmattributes = CMTextAttributes()
+    private let cmattributes = CMTextAttributes()
     
-    private func attributesForElement(element: MMElement) -> [String: AnyObject]? {
+    private func attributesForElement(element: MMElement) -> ([String: AnyObject]?, newLine: Bool) {
         switch element.type.rawValue { // TODO: Remove `.rawValue` when Swift 2.1 available.
         case MMElementTypeHeader.rawValue:
-            return cmattributes.attributesForHeaderLevel(Int(element.level))
+            return (cmattributes.attributesForHeaderLevel(Int(element.level)), true)
+        case MMElementTypeBulletedList.rawValue:
+            return (cmattributes.unorderedListAttributes, true)
+        case MMElementTypeNumberedList.rawValue:
+            return (cmattributes.orderedListAttributes, true)
+        case MMElementTypeListItem.rawValue:
+            return (cmattributes.unorderedListItemAttributes, true)
+        case MMElementTypeEm.rawValue:
+            return (cmattributes.emphasisAttributes, false)
+        case MMElementTypeLink.rawValue:
+            return (cmattributes.linkAttributes, true)
+        case MMElementTypeCodeBlock.rawValue:
+            return (cmattributes.codeBlockAttributes, true)
+        case MMElementTypeCodeSpan.rawValue:
+            return (cmattributes.inlineCodeAttributes, false)
+        case MMElementTypeBlockquote.rawValue:
+            return (cmattributes.blockQuoteAttributes, true)
+        case MMElementTypeLineBreak.rawValue:
+            return (nil, true)
         default:
-            return nil
+            return (nil, false)
         }
     }
 

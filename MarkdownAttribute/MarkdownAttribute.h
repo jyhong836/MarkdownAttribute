@@ -15,5 +15,7 @@ FOUNDATION_EXPORT double MarkdownAttributeVersionNumber;
 FOUNDATION_EXPORT const unsigned char MarkdownAttributeVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MarkdownAttribute/PublicHeader.h>
-
-
+#import <MarkdownAttribute/MMMarkdown.h>
+#import <MarkdownAttribute/MMParser.h>
+#import <MarkdownAttribute/MMElement.h>
+#import <MarkdownAttribute/MMDocument.h>

@@ -10,6 +10,25 @@
 		CD556DC61BC0106C0006C03F /* MarkdownAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD556DCD1BC0106C0006C03F /* MarkdownAttribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD556DC21BC0106C0006C03F /* MarkdownAttribute.framework */; settings = {ASSET_TAGS = (); }; };
 		CD556DD21BC0106C0006C03F /* MarkdownAttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556DD11BC0106C0006C03F /* MarkdownAttributeTests.swift */; };
+		CD556E131BC0133F0006C03F /* MMDocument_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E011BC0133F0006C03F /* MMDocument_Private.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E141BC0133F0006C03F /* MMDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E021BC0133F0006C03F /* MMDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD556E151BC0133F0006C03F /* MMDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E031BC0133F0006C03F /* MMDocument.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E161BC0133F0006C03F /* MMElement.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E041BC0133F0006C03F /* MMElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD556E171BC0133F0006C03F /* MMElement.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E051BC0133F0006C03F /* MMElement.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E181BC0133F0006C03F /* MMGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E061BC0133F0006C03F /* MMGenerator.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E191BC0133F0006C03F /* MMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E071BC0133F0006C03F /* MMGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E1A1BC0133F0006C03F /* MMHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E081BC0133F0006C03F /* MMHTMLParser.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E1B1BC0133F0006C03F /* MMHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E091BC0133F0006C03F /* MMHTMLParser.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E1C1BC0133F0006C03F /* MMMarkdown-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = CD556E0A1BC0133F0006C03F /* MMMarkdown-Prefix.pch */; settings = {ASSET_TAGS = (); }; };
+		CD556E1D1BC0133F0006C03F /* MMMarkdown.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E0B1BC0133F0006C03F /* MMMarkdown.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD556E1E1BC0133F0006C03F /* MMMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E0C1BC0133F0006C03F /* MMMarkdown.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E1F1BC0133F0006C03F /* MMParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E0D1BC0133F0006C03F /* MMParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD556E201BC0133F0006C03F /* MMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E0E1BC0133F0006C03F /* MMParser.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E211BC0133F0006C03F /* MMScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E0F1BC0133F0006C03F /* MMScanner.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E221BC0133F0006C03F /* MMScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E101BC0133F0006C03F /* MMScanner.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E231BC0133F0006C03F /* MMSpanParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E111BC0133F0006C03F /* MMSpanParser.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E121BC0133F0006C03F /* MMSpanParser.m */; settings = {ASSET_TAGS = (); }; };
+		CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E251BC0135C0006C03F /* MAMarkdown.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +48,25 @@
 		CD556DCC1BC0106C0006C03F /* MarkdownAttributeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarkdownAttributeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD556DD11BC0106C0006C03F /* MarkdownAttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownAttributeTests.swift; sourceTree = "<group>"; };
 		CD556DD31BC0106C0006C03F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD556E011BC0133F0006C03F /* MMDocument_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMDocument_Private.h; path = MMMarkdown/Source/MMDocument_Private.h; sourceTree = SOURCE_ROOT; };
+		CD556E021BC0133F0006C03F /* MMDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMDocument.h; path = MMMarkdown/Source/MMDocument.h; sourceTree = SOURCE_ROOT; };
+		CD556E031BC0133F0006C03F /* MMDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMDocument.m; path = MMMarkdown/Source/MMDocument.m; sourceTree = SOURCE_ROOT; };
+		CD556E041BC0133F0006C03F /* MMElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMElement.h; path = MMMarkdown/Source/MMElement.h; sourceTree = SOURCE_ROOT; };
+		CD556E051BC0133F0006C03F /* MMElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMElement.m; path = MMMarkdown/Source/MMElement.m; sourceTree = SOURCE_ROOT; };
+		CD556E061BC0133F0006C03F /* MMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMGenerator.h; path = MMMarkdown/Source/MMGenerator.h; sourceTree = SOURCE_ROOT; };
+		CD556E071BC0133F0006C03F /* MMGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMGenerator.m; path = MMMarkdown/Source/MMGenerator.m; sourceTree = SOURCE_ROOT; };
+		CD556E081BC0133F0006C03F /* MMHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMHTMLParser.h; path = MMMarkdown/Source/MMHTMLParser.h; sourceTree = SOURCE_ROOT; };
+		CD556E091BC0133F0006C03F /* MMHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMHTMLParser.m; path = MMMarkdown/Source/MMHTMLParser.m; sourceTree = SOURCE_ROOT; };
+		CD556E0A1BC0133F0006C03F /* MMMarkdown-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MMMarkdown-Prefix.pch"; path = "MMMarkdown/Source/MMMarkdown-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		CD556E0B1BC0133F0006C03F /* MMMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMMarkdown.h; path = MMMarkdown/Source/MMMarkdown.h; sourceTree = SOURCE_ROOT; };
+		CD556E0C1BC0133F0006C03F /* MMMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMMarkdown.m; path = MMMarkdown/Source/MMMarkdown.m; sourceTree = SOURCE_ROOT; };
+		CD556E0D1BC0133F0006C03F /* MMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMParser.h; path = MMMarkdown/Source/MMParser.h; sourceTree = SOURCE_ROOT; };
+		CD556E0E1BC0133F0006C03F /* MMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMParser.m; path = MMMarkdown/Source/MMParser.m; sourceTree = SOURCE_ROOT; };
+		CD556E0F1BC0133F0006C03F /* MMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMScanner.h; path = MMMarkdown/Source/MMScanner.h; sourceTree = SOURCE_ROOT; };
+		CD556E101BC0133F0006C03F /* MMScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMScanner.m; path = MMMarkdown/Source/MMScanner.m; sourceTree = SOURCE_ROOT; };
+		CD556E111BC0133F0006C03F /* MMSpanParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSpanParser.h; path = MMMarkdown/Source/MMSpanParser.h; sourceTree = SOURCE_ROOT; };
+		CD556E121BC0133F0006C03F /* MMSpanParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMSpanParser.m; path = MMMarkdown/Source/MMSpanParser.m; sourceTree = SOURCE_ROOT; };
+		CD556E251BC0135C0006C03F /* MAMarkdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAMarkdown.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +109,8 @@
 		CD556DC41BC0106C0006C03F /* MarkdownAttribute */ = {
 			isa = PBXGroup;
 			children = (
+				CD556E251BC0135C0006C03F /* MAMarkdown.swift */,
+				CD556E001BC012C30006C03F /* MMMarkdown */,
 				CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */,
 				CD556DC71BC0106C0006C03F /* Info.plist */,
 			);
@@ -86,6 +126,31 @@
 			path = MarkdownAttributeTests;
 			sourceTree = "<group>";
 		};
+		CD556E001BC012C30006C03F /* MMMarkdown */ = {
+			isa = PBXGroup;
+			children = (
+				CD556E0B1BC0133F0006C03F /* MMMarkdown.h */,
+				CD556E0C1BC0133F0006C03F /* MMMarkdown.m */,
+				CD556E061BC0133F0006C03F /* MMGenerator.h */,
+				CD556E071BC0133F0006C03F /* MMGenerator.m */,
+				CD556E081BC0133F0006C03F /* MMHTMLParser.h */,
+				CD556E091BC0133F0006C03F /* MMHTMLParser.m */,
+				CD556E011BC0133F0006C03F /* MMDocument_Private.h */,
+				CD556E021BC0133F0006C03F /* MMDocument.h */,
+				CD556E031BC0133F0006C03F /* MMDocument.m */,
+				CD556E041BC0133F0006C03F /* MMElement.h */,
+				CD556E051BC0133F0006C03F /* MMElement.m */,
+				CD556E0A1BC0133F0006C03F /* MMMarkdown-Prefix.pch */,
+				CD556E0D1BC0133F0006C03F /* MMParser.h */,
+				CD556E0E1BC0133F0006C03F /* MMParser.m */,
+				CD556E0F1BC0133F0006C03F /* MMScanner.h */,
+				CD556E101BC0133F0006C03F /* MMScanner.m */,
+				CD556E111BC0133F0006C03F /* MMSpanParser.h */,
+				CD556E121BC0133F0006C03F /* MMSpanParser.m */,
+			);
+			name = MMMarkdown;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -93,7 +158,17 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD556E231BC0133F0006C03F /* MMSpanParser.h in Headers */,
+				CD556E1A1BC0133F0006C03F /* MMHTMLParser.h in Headers */,
 				CD556DC61BC0106C0006C03F /* MarkdownAttribute.h in Headers */,
+				CD556E181BC0133F0006C03F /* MMGenerator.h in Headers */,
+				CD556E1C1BC0133F0006C03F /* MMMarkdown-Prefix.pch in Headers */,
+				CD556E1F1BC0133F0006C03F /* MMParser.h in Headers */,
+				CD556E161BC0133F0006C03F /* MMElement.h in Headers */,
+				CD556E141BC0133F0006C03F /* MMDocument.h in Headers */,
+				CD556E131BC0133F0006C03F /* MMDocument_Private.h in Headers */,
+				CD556E1D1BC0133F0006C03F /* MMMarkdown.h in Headers */,
+				CD556E211BC0133F0006C03F /* MMScanner.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +217,7 @@
 		CD556DB91BC0106C0006C03F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Junyuan Hong";
 				TargetAttributes = {
@@ -193,6 +269,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD556E171BC0133F0006C03F /* MMElement.m in Sources */,
+				CD556E1B1BC0133F0006C03F /* MMHTMLParser.m in Sources */,
+				CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */,
+				CD556E201BC0133F0006C03F /* MMParser.m in Sources */,
+				CD556E151BC0133F0006C03F /* MMDocument.m in Sources */,
+				CD556E191BC0133F0006C03F /* MMGenerator.m in Sources */,
+				CD556E1E1BC0133F0006C03F /* MMMarkdown.m in Sources */,
+				CD556E221BC0133F0006C03F /* MMScanner.m in Sources */,
+				CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +387,7 @@
 		CD556DD71BC0106C0006C03F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -314,12 +400,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyhong.MarkdownAttribute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		CD556DD81BC0106C0006C03F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -332,6 +421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jyhong.MarkdownAttribute;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
@@ -376,6 +466,7 @@
 				CD556DD81BC0106C0006C03F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD556DD91BC0106C0006C03F /* Build configuration list for PBXNativeTarget "MarkdownAttributeTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +475,7 @@
 				CD556DDB1BC0106C0006C03F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

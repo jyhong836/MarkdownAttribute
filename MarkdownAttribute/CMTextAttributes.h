@@ -26,7 +26,7 @@
  *
  *  @return The attributes for the specified header level.
  */
-- (NSDictionary *)attributesForHeaderLevel:(NSInteger)level;
+- (NSDictionary<NSString*,id> *)attributesForHeaderLevel:(NSInteger)level;
 
 /**
  *  Attributes used to style text.

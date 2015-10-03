@@ -49,6 +49,38 @@ class MAGenerator {
     }
     
     private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, document: MMDocument, inout location: UInt) {
+        let attribute  = attributesForElement(element)
+        let startIdx = astr.length
+        
+        for child in element.children {
+            if child.type == MMElementTypeNone {
+                if document.markdown.isEmpty {
+                    astr.appendAttributedString(NSAttributedString(string: "\n"))
+                } else {
+                    astr.appendAttributedString(NSAttributedString(string: NSString(string: document.markdown).substringWithRange(child.range)))
+                }
+            } else if (child.type == MMElementTypeHTML) {
+                astr.appendAttributedString(NSAttributedString(string: NSString(string: document.markdown).substringWithRange(child.range)))
+            } else {
+                generate(attributedString: astr, element: element, document: document, location: &location)
+            }
+        }
+        
+        let endIdx = astr.length
+        if let attr = attribute {
+            astr.setAttributes(attr, range: NSMakeRange(startIdx, endIdx - startIdx))
+        }
+    }
+    
+    let cmattributes = CMTextAttributes()
+    
+    private func attributesForElement(element: MMElement) -> [String: AnyObject]? {
+        switch element.type.rawValue { // TODO: Remove `.rawValue` when Swift 2.1 available.
+        case MMElementTypeHeader.rawValue:
+            return cmattributes.attributesForHeaderLevel(Int(element.level))
+        default:
+            return nil
+        }
     }
 
 }

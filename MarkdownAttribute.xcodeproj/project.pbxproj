@@ -29,6 +29,10 @@
 		CD556E231BC0133F0006C03F /* MMSpanParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E111BC0133F0006C03F /* MMSpanParser.h */; settings = {ASSET_TAGS = (); }; };
 		CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E121BC0133F0006C03F /* MMSpanParser.m */; settings = {ASSET_TAGS = (); }; };
 		CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E251BC0135C0006C03F /* MAMarkdown.swift */; settings = {ASSET_TAGS = (); }; };
+		CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */; settings = {ASSET_TAGS = (); }; };
+		CD556E311BC01E3C0006C03F /* CMPlatformDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E321BC01E3C0006C03F /* CMTextAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD556E331BC01E3C0006C03F /* CMTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E301BC01E3C0006C03F /* CMTextAttributes.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,10 @@
 		CD556E111BC0133F0006C03F /* MMSpanParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSpanParser.h; path = MMMarkdown/Source/MMSpanParser.h; sourceTree = SOURCE_ROOT; };
 		CD556E121BC0133F0006C03F /* MMSpanParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMSpanParser.m; path = MMMarkdown/Source/MMSpanParser.m; sourceTree = SOURCE_ROOT; };
 		CD556E251BC0135C0006C03F /* MAMarkdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAMarkdown.swift; sourceTree = "<group>"; };
+		CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAGenerator.swift; sourceTree = "<group>"; };
+		CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPlatformDefines.h; sourceTree = "<group>"; };
+		CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextAttributes.h; sourceTree = "<group>"; };
+		CD556E301BC01E3C0006C03F /* CMTextAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTextAttributes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +117,10 @@
 		CD556DC41BC0106C0006C03F /* MarkdownAttribute */ = {
 			isa = PBXGroup;
 			children = (
-				CD556E251BC0135C0006C03F /* MAMarkdown.swift */,
 				CD556E001BC012C30006C03F /* MMMarkdown */,
+				CD556E341BC01E810006C03F /* CocoaMarkdown */,
+				CD556E251BC0135C0006C03F /* MAMarkdown.swift */,
+				CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */,
 				CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */,
 				CD556DC71BC0106C0006C03F /* Info.plist */,
 			);
@@ -151,6 +161,16 @@
 			name = MMMarkdown;
 			sourceTree = "<group>";
 		};
+		CD556E341BC01E810006C03F /* CocoaMarkdown */ = {
+			isa = PBXGroup;
+			children = (
+				CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */,
+				CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */,
+				CD556E301BC01E3C0006C03F /* CMTextAttributes.m */,
+			);
+			name = CocoaMarkdown;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -158,6 +178,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD556E321BC01E3C0006C03F /* CMTextAttributes.h in Headers */,
+				CD556E311BC01E3C0006C03F /* CMPlatformDefines.h in Headers */,
 				CD556E231BC0133F0006C03F /* MMSpanParser.h in Headers */,
 				CD556E1A1BC0133F0006C03F /* MMHTMLParser.h in Headers */,
 				CD556DC61BC0106C0006C03F /* MarkdownAttribute.h in Headers */,
@@ -272,10 +294,12 @@
 				CD556E171BC0133F0006C03F /* MMElement.m in Sources */,
 				CD556E1B1BC0133F0006C03F /* MMHTMLParser.m in Sources */,
 				CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */,
+				CD556E331BC01E3C0006C03F /* CMTextAttributes.m in Sources */,
 				CD556E201BC0133F0006C03F /* MMParser.m in Sources */,
 				CD556E151BC0133F0006C03F /* MMDocument.m in Sources */,
 				CD556E191BC0133F0006C03F /* MMGenerator.m in Sources */,
 				CD556E1E1BC0133F0006C03F /* MMMarkdown.m in Sources */,
+				CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */,
 				CD556E221BC0133F0006C03F /* MMScanner.m in Sources */,
 				CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */,
 			);

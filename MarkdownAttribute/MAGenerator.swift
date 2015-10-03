@@ -1,5 +1,5 @@
 //
-//  MAMarkdown.swift
+//  MAGenerator.swift
 //  MarkdownAttribute
 //
 //  Created by Junyuan Hong on 10/3/15.
@@ -28,18 +28,27 @@
 
 import Cocoa
 
-public class MAMarkdown {
-
-    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions) throws -> NSAttributedString {
-        if mstring == nil || mstring!.isEmpty {
-            return NSAttributedString()
+class MAGenerator {
+    
+    func generateAttributedString(document: MMDocument) -> NSAttributedString {
+        
+        let markdown = NSString(string: document.markdown!)
+        var location = UInt(0)
+        
+        let astr = NSMutableAttributedString()
+        
+        for element in (document.elements as? [MMElement])! {
+            if element.type == MMElementTypeHTML {
+                astr.appendAttributedString(NSAttributedString(string: markdown.substringWithRange(element.range)))
+            } else {
+                generate(attributedString: astr, element: element, document: document, location: &location)
+            }
         }
-        let parser = MMParser(extensions: extensions)
-        let generator = MAGenerator()
         
-        let document = try parser.parseMarkdown(mstring) // would return nil?
-        
-        return generator.generateAttributedString(document)
+        return astr
     }
     
+    private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, document: MMDocument, inout location: UInt) {
+    }
+
 }

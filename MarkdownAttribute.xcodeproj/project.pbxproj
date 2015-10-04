@@ -30,7 +30,7 @@
 		CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E121BC0133F0006C03F /* MMSpanParser.m */; settings = {ASSET_TAGS = (); }; };
 		CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E251BC0135C0006C03F /* MAMarkdown.swift */; settings = {ASSET_TAGS = (); }; };
 		CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */; settings = {ASSET_TAGS = (); }; };
-		CD556E311BC01E3C0006C03F /* CMPlatformDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */; settings = {ASSET_TAGS = (); }; };
+		CD556E311BC01E3C0006C03F /* CMPlatformDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD556E321BC01E3C0006C03F /* CMTextAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD556E331BC01E3C0006C03F /* CMTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E301BC01E3C0006C03F /* CMTextAttributes.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */

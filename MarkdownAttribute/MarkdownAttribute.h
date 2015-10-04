@@ -20,3 +20,4 @@ FOUNDATION_EXPORT const unsigned char MarkdownAttributeVersionString[];
 #import <MarkdownAttribute/MMElement.h>
 #import <MarkdownAttribute/MMDocument.h>
 #import <MarkdownAttribute/CMTextAttributes.h>
+#import <MarkdownAttribute/CMPlatformDefines.h>

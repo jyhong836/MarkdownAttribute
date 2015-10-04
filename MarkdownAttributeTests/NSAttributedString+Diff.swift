@@ -52,24 +52,29 @@ extension NSAttributedString {
     }
     
     func prettyDiffAttributes(inRange range: NSRange, otherString s2: NSAttributedString) -> String {
-        let attrs1 = self.attributesAtIndex(range.location, longestEffectiveRange: nil, inRange: range)
-        let attrs2 = s2.attributesAtIndex(range.location, longestEffectiveRange: nil, inRange: range)
+        var effRange1 = range
+        var effRange2 = range
+        let attrs1 = self.attributesAtIndex(range.location, longestEffectiveRange: &effRange1, inRange: range)
+        let attrs2 = s2.attributesAtIndex(range.location, longestEffectiveRange: &effRange2, inRange: range)
         
-        let len1 = attrs1.count
-        let len2 = attrs2.count
+//        let len1 = attrs1.count
+//        let len2 = attrs2.count
         
-        let (attrs, comparedAttrs) = (len1 > len2) ? (attrs1, attrs2) : (attrs2, attrs1)
+//        let (attrs, comparedAttrs) = (len1 > len2) ? (attrs1, attrs2) : (attrs2, attrs1)
         
         var diffDescription = "Attributes:\n"
         
         // TODO: print the value different
-        for (name, val) in attrs {
+        diffDescription += "\(attrs1.count) attrs:"
+        for (name, val) in attrs1 {
             diffDescription += " \(name) "
         }
         diffDescription += "\n"
-        for (name, val) in comparedAttrs {
+        diffDescription += "\(attrs2.count) attrs:"
+        for (name, val) in attrs2 {
             diffDescription += " \(name) "
         }
+        diffDescription += "\n"
         
         return diffDescription
     }
@@ -97,7 +102,7 @@ extension NSAttributedString {
             /// an ellipsis is added at the end.
             func windowSubstring(s: NSAttributedString, range: NSRange) -> String {
                 let validRange = NSMakeRange(range.location, min(range.length, s.length - range.location))
-                let substring = s.attributedSubstringFromRange(validRange)
+                let substring = s.attributedSubstringFromRange(validRange).string
 
                 let prefix = range.location > 0 ? ellipsis : ""
                 let suffix = (s.length - range.location > range.length) ? ellipsis : ""
@@ -128,7 +133,8 @@ extension NSAttributedString {
         case .NoDifference:                 return "No difference"
         case .DifferenceAtIndex(let index): return diffString(index, s1: self, s2: s2)
         case .DifferenceInRange(let range):
-            return ["Difference(maybe attribute) in range: \(range.location) ... \(range.location+range.length - 1)",
+            return ["Difference(maybe attribute) in range: \(range.location) \u{2026} \(range.location+range.length - 1)",
+                "",
                 diffString(range.location, s1: self, s2: s2),
                 self.prettyDiffAttributes(inRange: range, otherString: s2)].joinWithSeparator("\n")
         }

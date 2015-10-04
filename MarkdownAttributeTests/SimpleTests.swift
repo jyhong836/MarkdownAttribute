@@ -17,11 +17,14 @@ class SimpleTests: XCTestCase {
     override func setUp() {
     }
     
-    func STAssertTransform(markdown: String, _ html: String, _ message: String = "") {
+    func STAssertTransform(markdown: String, _ html: String, _ message: String = "fail to transform to expected") {
         do {
             let expected = try NSAttributedString(data: html.dataUsingEncoding(defaultEncoding)!, options: [NSDocumentTypeDocumentOption : NSHTMLTextDocumentType], documentAttributes: nil)
             let actual = try MAMarkdown.attributedString(markdown: markdown, extensions: defaultExtension)
-            XCTAssertEqual(expected, actual, message)
+            XCTAssert(actual.isEqualToAttributedString(expected), message)
+            
+            print(": actual\n: expected")
+            print(actual.prettyFirstDifferenceToSting(otherString: expected))
         } catch {
             XCTFail("\(message)\n====== ERROR =====\n\(error)")
         }

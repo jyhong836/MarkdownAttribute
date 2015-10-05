@@ -6,7 +6,7 @@
 //  Copyright © 2015 Junyuan Hong. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for MarkdownAttribute.
 FOUNDATION_EXPORT double MarkdownAttributeVersionNumber;
@@ -19,5 +19,3 @@ FOUNDATION_EXPORT const unsigned char MarkdownAttributeVersionString[];
 #import <MarkdownAttribute/MMParser.h>
 #import <MarkdownAttribute/MMElement.h>
 #import <MarkdownAttribute/MMDocument.h>
-#import <MarkdownAttribute/CMTextAttributes.h>
-#import <MarkdownAttribute/CMPlatformDefines.h>

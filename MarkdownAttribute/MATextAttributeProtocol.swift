@@ -8,7 +8,10 @@
 
 typealias AttributeDict = [String : AnyObject]
 
+/// Provide text attributes for markdown.
 protocol MATextAttributeProtocol {
+    
+    var text: AttributeDict { get }
     
     var header1: AttributeDict { get }
     var header2: AttributeDict { get }

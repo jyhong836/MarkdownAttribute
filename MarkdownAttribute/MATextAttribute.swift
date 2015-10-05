@@ -13,6 +13,16 @@
 #endif
 
 class MATextAttribute: MATextAttributeProtocol {
+    
+    var text: AttributeDict {
+        get {
+            #if os(OSX)
+                return [NSFontAttributeName : NSFont.userFontOfSize(12.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+            #endif
+        }
+    }
 
     var header1: AttributeDict {
         get {
@@ -71,6 +81,18 @@ class MATextAttribute: MATextAttributeProtocol {
                 #elseif os(iOS)
                 return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
+        }
+    }
+    
+    func header(level: Int) -> AttributeDict {
+        switch (level) {
+        case 1: return header1
+        case 2: return header2
+        case 3: return header3
+        case 4: return header4
+        case 5: return header5
+        case 6: fallthrough
+        default: return header6
         }
     }
     

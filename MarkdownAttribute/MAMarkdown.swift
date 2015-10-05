@@ -26,7 +26,7 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-import Cocoa
+//import Cocoa
 
 public class MAMarkdown {
 

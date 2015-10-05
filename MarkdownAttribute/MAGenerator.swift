@@ -32,6 +32,7 @@
     import UIKit
 #endif
 
+/// A generator is used to generate NSAttributedString according to given MMDocument.
 class MAGenerator {
     
     private var attributeProvider: MATextAttributesProvider

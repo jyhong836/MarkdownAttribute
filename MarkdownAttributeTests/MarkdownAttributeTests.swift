@@ -43,28 +43,8 @@ class MarkdownAttributeTests: XCTestCase {
     
     func testExample() {
         let mstring = [
-            "# Playground",
-            "+ hello, **world**",
-            "+ byebe, **world**",
-            "",
-            "1. this is numbered list item 1",
-            "2. this is numbered list item 1, and a **em**, a *strong*",
-            "",
-            "link: [website](jyhong.com)",
-            "",
-            "1. ok",
-            "   + hi",
-            "   + hello",
-            "1. fine",
-            "",
-            "```swift",
-            "func swiftFunc()",
-            "   print(\"hi\")",
-            "```",
-            "😄汉字, `inline code`, r",
-            "",
-            "<a href=\"jyhong.com\">jyho</a>",
-            "end"
+            "line1, ",
+            "line2"
             ].joinWithSeparator("\n")
         
         do {

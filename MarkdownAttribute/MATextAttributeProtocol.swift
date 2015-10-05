@@ -13,6 +13,8 @@ protocol MATextAttributeProtocol {
     
     var text: AttributeDict { get }
     
+    var paragraph: AttributeDict { get }
+    
     var header1: AttributeDict { get }
     var header2: AttributeDict { get }
     var header3: AttributeDict { get }

@@ -14,6 +14,9 @@
 
 class MATextAttribute: MATextAttributeProtocol {
     
+    let defaultFont = NSFont(name: "Times-Roman", size: 12.0)
+    let defaultBoldFont = NSFont(name: "Times-Bold", size: 12.0)
+    
     var text: AttributeDict {
         get {
             #if os(OSX)
@@ -21,6 +24,15 @@ class MATextAttribute: MATextAttributeProtocol {
             #elseif os(iOS)
                 return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
             #endif
+        }
+    }
+    
+    var paragraph: AttributeDict {
+        get {
+            let ps = NSMutableParagraphStyle()
+            ps.paragraphSpacing = 12.0
+            ps.defaultTabInterval = 36
+            return [NSParagraphStyleAttributeName : ps]
         }
     }
 
@@ -98,12 +110,12 @@ class MATextAttribute: MATextAttributeProtocol {
     
     var emphasis: AttributeDict {
         get {
-            return [ : ]
+            return [NSFontAttributeName : defaultBoldFont!]
         }
     }
     var strong: AttributeDict {
         get {
-            return [ : ]
+            return [NSFontAttributeName : defaultBoldFont!]
         }
     }
     

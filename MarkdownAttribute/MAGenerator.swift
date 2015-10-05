@@ -34,10 +34,15 @@
 
 class MAGenerator {
     
+    /// Temperate storage of document
+    private var document: MMDocument?
+    
+    /// Generate NSAttributedString from MMDocument.
     func generateAttributedString(document: MMDocument) -> NSAttributedString {
         
+        self.document = document
+        
         let markdown = NSString(string: document.markdown!)
-        var location = UInt(0)
         
         let astr = NSMutableAttributedString()
         
@@ -45,16 +50,23 @@ class MAGenerator {
             if element.type == MMElementTypeHTML {
                 attributedStringFromHTML(markdown.substringWithRange(element.range))
             } else {
-                generate(attributedString: astr, element: element, document: document, location: &location)
+                generate(attributedString: astr, element: element, baseAttributes: nil)
             }
         }
         
         return astr
     }
     
-    private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, document: MMDocument, inout location: UInt) {
-        let (attribute, newLine) = attributesForElement(element)
+    /// Using MMElement to generate NSAttributedString, and add to input string.
+    /// Set the document of instance before invoke this method.
+    ///
+    /// - parameter attributedString: a mutable attributed string to store changes.
+    /// - parameter element: a element which stored markdown string type.
+    /// - parameter baseAttributes: the based attributes.
+    private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, baseAttributes: AttributeDict?) {
+        let (elemAttrs, newLine) = attributesForElement(element)
         
+        // Add some character for special element type
         switch element.type.rawValue {
         case MMElementTypeNumberedList.rawValue:
             element.level = 0 // FIXME: This is a workaround, fix it in future
@@ -73,26 +85,31 @@ class MAGenerator {
         default: break
         }
         
-        let startIdx = astr.length
-        
         for child in element.children as! [MMElement] {
             if child.type == MMElementTypeNone {
                 if child.range.length == 0 {
                     astr.appendAttributedString(NSAttributedString(string: "\n"))
+                    // TODO: apply attributes??
                 } else {
-                    astr.appendAttributedString(NSAttributedString(string: NSString(string: document.markdown).substringWithRange(child.range)))
+                    var newAttributes = elemAttrs
+                    if let baseAttr = baseAttributes {
+                        for (key, value) in baseAttr {
+                            if newAttributes[key] == nil {
+                                newAttributes[key] = value
+                            } // TODO: process font traits
+                        }
+                    }
+                    let appendedString = NSAttributedString(string: NSString(string: document!.markdown).substringWithRange(child.range), attributes: newAttributes)
+                    astr.appendAttributedString(appendedString)
                 }
             } else if (child.type == MMElementTypeHTML) {
-                attributedStringFromHTML(NSString(string: document.markdown).substringWithRange(child.range))
+                attributedStringFromHTML(NSString(string: document!.markdown).substringWithRange(child.range))
+                // TODO: apply attributes??
             } else {
-                generate(attributedString: astr, element: child, document: document, location: &location)
+                generate(attributedString: astr, element: child, baseAttributes: elemAttrs)
             }
         }
         
-        let endIdx = astr.length
-        if let attr = attribute {
-            astr.setAttributes(attr, range: NSMakeRange(startIdx, endIdx - startIdx))
-        }
         if newLine {
             astr.appendAttributedString(NSAttributedString(string: "\n"))
         }
@@ -102,36 +119,38 @@ class MAGenerator {
         do {
             return try NSAttributedString(data: HTML.dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
         } catch {
-            fatalError("Fail to create attributed string from html.")
+            fatalError("Fail to create attributed string from html: \(error)")
         }
     }
     
-    private let cmattributes = MATextAttribute()
+    private let tattrs = MATextAttribute()
     
-    private func attributesForElement(element: MMElement) -> ([String: AnyObject]?, newLine: Bool) {
+    private func attributesForElement(element: MMElement) -> ([String: AnyObject], newLine: Bool) {
         switch element.type.rawValue { // TODO: Remove `.rawValue` when Swift 2.1 available.
         case MMElementTypeHeader.rawValue:
-            return (cmattributes.header(Int(element.level)), true)
+            return (tattrs.header(Int(element.level)), true)
             
         case MMElementTypeBulletedList.rawValue:
-            return (cmattributes.unorderedList, true)
+            return (tattrs.unorderedList, true)
         case MMElementTypeNumberedList.rawValue:
-            return (cmattributes.orderedList, true)
+            return (tattrs.orderedList, true)
         case MMElementTypeListItem.rawValue:
-            return (cmattributes.listItem, true)
+            return (tattrs.listItem, true)
             
         case MMElementTypeEm.rawValue:
-            if cmattributes.emphasis[NSFontAttributeName] != nil {
-                return (cmattributes.emphasis, false)
+            if tattrs.emphasis[NSFontAttributeName] != nil {
+                return (tattrs.emphasis, false)
             }
             // TODO: add font trait
             else {
-                return (nil, false)
+                return ([:], false)
 //                return (NSFontItalicTrait, false)
             }
+        case MMElementTypeStrong.rawValue:
+            return (tattrs.strong, false)
             
         case MMElementTypeLink.rawValue:
-            var attr = cmattributes.link
+            var attr = tattrs.link
             attr[NSLinkAttributeName] = NSURL(string: element.href)
             #if os(OSX)
                 if let t = element.title {
@@ -141,20 +160,42 @@ class MAGenerator {
             return (attr, true)
         // code
         case MMElementTypeCodeBlock.rawValue:
-            return (cmattributes.codeBlock, true)
+            return (tattrs.codeBlock, true)
         case MMElementTypeCodeSpan.rawValue:
-            return (cmattributes.inlineCode, false)
+            return (tattrs.inlineCode, false)
             
         case MMElementTypeBlockquote.rawValue:
-            return (cmattributes.blockQuote, true)
+            return (tattrs.blockQuote, true)
         // line break
         case MMElementTypeLineBreak.rawValue:
-            return (nil, true)
+            return ([:], true)
         case MMElementTypeParagraph.rawValue:
-            return (nil, true)
+            return (tattrs.paragraph, true)
             
+        case MMElementTypeStrikethrough.rawValue:
+            return ([:], false)
+        case MMElementTypeHorizontalRule.rawValue:
+            return ([:], false)
+        case MMElementTypeImage.rawValue:
+            return ([:], false)
+        case MMElementTypeMailTo.rawValue:
+            return ([:], false)
+        case MMElementTypeDefinition.rawValue:
+            return ([:], false)
+        case MMElementTypeEntity.rawValue:
+            return ([:], false)
+        case MMElementTypeTable.rawValue:
+            return ([:], false)
+        case MMElementTypeTableHeader.rawValue:
+            return ([:], false)
+        case MMElementTypeTableHeaderCell.rawValue:
+            return ([:], false)
+        case MMElementTypeTableRow.rawValue:
+            return ([:], false)
+        case MMElementTypeTableRowCell.rawValue:
+            return ([:], false)
         default:
-            return (nil, false)
+            return ([:], false)
         }
     }
 

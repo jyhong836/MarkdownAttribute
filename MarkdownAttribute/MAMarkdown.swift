@@ -30,7 +30,7 @@
 
 public class MAMarkdown {
 
-    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions) throws -> NSAttributedString {
+    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions = .None) throws -> NSAttributedString {
         if mstring == nil || mstring!.isEmpty {
             return NSAttributedString()
         }

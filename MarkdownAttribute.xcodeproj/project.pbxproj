@@ -255,7 +255,7 @@
 		CD556E111BC0133F0006C03F /* MMSpanParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MMSpanParser.h; path = MMMarkdown/Source/MMSpanParser.h; sourceTree = SOURCE_ROOT; };
 		CD556E121BC0133F0006C03F /* MMSpanParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MMSpanParser.m; path = MMMarkdown/Source/MMSpanParser.m; sourceTree = SOURCE_ROOT; };
 		CD556E251BC0135C0006C03F /* MAMarkdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAMarkdown.swift; sourceTree = "<group>"; };
-		CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MAGenerator.swift; sourceTree = "<group>"; };
+		CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MAGenerator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CD556E351BC028770006C03F /* MarkdownExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MarkdownExample.playground; sourceTree = "<group>"; };
 		CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colorfy.swift; sourceTree = "<group>"; };
 		CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttribute.swift; sourceTree = "<group>"; };
@@ -458,10 +458,9 @@
 			isa = PBXGroup;
 			children = (
 				CD556E001BC012C30006C03F /* MMMarkdown */,
-				CD556E341BC01E810006C03F /* CocoaMarkdown */,
+				CDD85F3F1BC2398F008534E3 /* Text Attributes */,
 				CD556E251BC0135C0006C03F /* MAMarkdown.swift */,
 				CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */,
-				CDD85F3F1BC2398F008534E3 /* Text Attributes */,
 				CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */,
 				CD556DC71BC0106C0006C03F /* Info.plist */,
 			);
@@ -505,13 +504,6 @@
 				CD556E121BC0133F0006C03F /* MMSpanParser.m */,
 			);
 			name = MMMarkdown;
-			sourceTree = "<group>";
-		};
-		CD556E341BC01E810006C03F /* CocoaMarkdown */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = CocoaMarkdown;
 			sourceTree = "<group>";
 		};
 		CDD85F3F1BC2398F008534E3 /* Text Attributes */ = {

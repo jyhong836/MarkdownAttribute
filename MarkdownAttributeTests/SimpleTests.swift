@@ -9,8 +9,6 @@
 @testable import MarkdownAttribute
 import XCTest
 
-
-
 class SimpleTests: XCTestCase {
     
     private let defaultEncoding = NSUTF8StringEncoding

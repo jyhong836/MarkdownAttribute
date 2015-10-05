@@ -34,6 +34,14 @@
 
 class MAGenerator {
     
+    private var attributeProvider: MATextAttributesProvider
+    
+    /// Create generator with MATextAttributesProvider.
+    /// By default the provider is MATextAttributes.
+    init(textAttributesProvider provider: MATextAttributesProvider = MATextAttributes()) {
+        attributeProvider = provider
+    }
+    
     /// Temperate storage of document
     private var document: MMDocument?
     
@@ -115,6 +123,8 @@ class MAGenerator {
         }
     }
     
+    /// Use NSAttributedString initialzer to create string from HTML.
+    /// If failed, a fatalError will occure.
     func attributedStringFromHTML(HTML: NSString) -> NSAttributedString {
         do {
             return try NSAttributedString(data: HTML.dataUsingEncoding(NSUTF8StringEncoding)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
@@ -123,23 +133,22 @@ class MAGenerator {
         }
     }
     
-    private let tattrs = MATextAttribute()
-    
+    /// Get attributes according to MMElement.
     private func attributesForElement(element: MMElement) -> ([String: AnyObject], newLine: Bool) {
         switch element.type.rawValue { // TODO: Remove `.rawValue` when Swift 2.1 available.
         case MMElementTypeHeader.rawValue:
-            return (tattrs.header(Int(element.level)), true)
+            return (attributeProvider.header(Int(element.level)), true)
             
         case MMElementTypeBulletedList.rawValue:
-            return (tattrs.unorderedList, true)
+            return (attributeProvider.unorderedList, true)
         case MMElementTypeNumberedList.rawValue:
-            return (tattrs.orderedList, true)
+            return (attributeProvider.orderedList, true)
         case MMElementTypeListItem.rawValue:
-            return (tattrs.listItem, true)
+            return (attributeProvider.listItem, true)
             
         case MMElementTypeEm.rawValue:
-            if tattrs.emphasis[NSFontAttributeName] != nil {
-                return (tattrs.emphasis, false)
+            if attributeProvider.emphasis[NSFontAttributeName] != nil {
+                return (attributeProvider.emphasis, false)
             }
             // TODO: add font trait
             else {
@@ -147,10 +156,10 @@ class MAGenerator {
 //                return (NSFontItalicTrait, false)
             }
         case MMElementTypeStrong.rawValue:
-            return (tattrs.strong, false)
+            return (attributeProvider.strong, false)
             
         case MMElementTypeLink.rawValue:
-            var attr = tattrs.link
+            var attr = attributeProvider.link
             attr[NSLinkAttributeName] = NSURL(string: element.href)
             #if os(OSX)
                 if let t = element.title {
@@ -160,17 +169,17 @@ class MAGenerator {
             return (attr, true)
         // code
         case MMElementTypeCodeBlock.rawValue:
-            return (tattrs.codeBlock, true)
+            return (attributeProvider.codeBlock, true)
         case MMElementTypeCodeSpan.rawValue:
-            return (tattrs.inlineCode, false)
+            return (attributeProvider.inlineCode, false)
             
         case MMElementTypeBlockquote.rawValue:
-            return (tattrs.blockQuote, true)
+            return (attributeProvider.blockQuote, true)
         // line break
         case MMElementTypeLineBreak.rawValue:
             return ([:], true)
         case MMElementTypeParagraph.rawValue:
-            return (tattrs.paragraph, true)
+            return (attributeProvider.paragraph, true)
             
         case MMElementTypeStrikethrough.rawValue:
             return ([:], false)

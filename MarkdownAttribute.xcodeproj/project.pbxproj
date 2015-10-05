@@ -83,12 +83,12 @@
 		CD556E261BC0135C0006C03F /* MAMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E251BC0135C0006C03F /* MAMarkdown.swift */; settings = {ASSET_TAGS = (); }; };
 		CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */; settings = {ASSET_TAGS = (); }; };
 		CD5AC5FC1BC22C20003894B0 /* Colorfy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */; settings = {ASSET_TAGS = (); }; };
-		CDD85F401BC23C48008534E3 /* MATextAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */; settings = {ASSET_TAGS = (); }; };
-		CDD85F411BC23C4E008534E3 /* MATextAttributeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD85F401BC23C48008534E3 /* MATextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E31BC219C000EA36C3 /* MATextAttributes.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD85F411BC23C4E008534E3 /* MATextAttributesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E51BC21BD200EA36C3 /* MATextAttributesProvider.swift */; settings = {ASSET_TAGS = (); }; };
 		CDD85F421BC23C56008534E3 /* MAGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */; settings = {ASSET_TAGS = (); }; };
 		CDD85F431BC23C5A008534E3 /* MAMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD556E251BC0135C0006C03F /* MAMarkdown.swift */; settings = {ASSET_TAGS = (); }; };
-		CDD9A0E41BC219C000EA36C3 /* MATextAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */; settings = {ASSET_TAGS = (); }; };
-		CDD9A0E61BC21BD200EA36C3 /* MATextAttributeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD9A0E41BC219C000EA36C3 /* MATextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E31BC219C000EA36C3 /* MATextAttributes.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD9A0E61BC21BD200EA36C3 /* MATextAttributesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E51BC21BD200EA36C3 /* MATextAttributesProvider.swift */; settings = {ASSET_TAGS = (); }; };
 		CDFDBB5B1BC23695002C01A1 /* MarkdownAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFDBB5C1BC236A0002C01A1 /* MMMarkdown.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E0B1BC0133F0006C03F /* MMMarkdown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDFDBB5D1BC236A0002C01A1 /* MMMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E0C1BC0133F0006C03F /* MMMarkdown.m */; settings = {ASSET_TAGS = (); }; };
@@ -258,8 +258,8 @@
 		CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MAGenerator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CD556E351BC028770006C03F /* MarkdownExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MarkdownExample.playground; sourceTree = "<group>"; };
 		CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colorfy.swift; sourceTree = "<group>"; };
-		CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttribute.swift; sourceTree = "<group>"; };
-		CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttributeProtocol.swift; sourceTree = "<group>"; };
+		CDD9A0E31BC219C000EA36C3 /* MATextAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttributes.swift; sourceTree = "<group>"; };
+		CDD9A0E51BC21BD200EA36C3 /* MATextAttributesProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttributesProvider.swift; sourceTree = "<group>"; };
 		CDFDBB531BC23656002C01A1 /* MarkdownAttribute.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarkdownAttribute.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -509,8 +509,8 @@
 		CDD85F3F1BC2398F008534E3 /* Text Attributes */ = {
 			isa = PBXGroup;
 			children = (
-				CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */,
-				CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */,
+				CDD9A0E51BC21BD200EA36C3 /* MATextAttributesProvider.swift */,
+				CDD9A0E31BC219C000EA36C3 /* MATextAttributes.swift */,
 			);
 			name = "Text Attributes";
 			sourceTree = "<group>";
@@ -731,13 +731,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD556E171BC0133F0006C03F /* MMElement.m in Sources */,
-				CDD9A0E61BC21BD200EA36C3 /* MATextAttributeProtocol.swift in Sources */,
+				CDD9A0E61BC21BD200EA36C3 /* MATextAttributesProvider.swift in Sources */,
 				CD556E1B1BC0133F0006C03F /* MMHTMLParser.m in Sources */,
 				CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */,
 				CD556E201BC0133F0006C03F /* MMParser.m in Sources */,
 				CD556E151BC0133F0006C03F /* MMDocument.m in Sources */,
 				CD556E191BC0133F0006C03F /* MMGenerator.m in Sources */,
-				CDD9A0E41BC219C000EA36C3 /* MATextAttribute.swift in Sources */,
+				CDD9A0E41BC219C000EA36C3 /* MATextAttributes.swift in Sources */,
 				CD556E1E1BC0133F0006C03F /* MMMarkdown.m in Sources */,
 				CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */,
 				CD556E221BC0133F0006C03F /* MMScanner.m in Sources */,
@@ -767,11 +767,11 @@
 				CDD85F421BC23C56008534E3 /* MAGenerator.swift in Sources */,
 				CDFDBB691BC236A0002C01A1 /* MMParser.m in Sources */,
 				CDFDBB5D1BC236A0002C01A1 /* MMMarkdown.m in Sources */,
-				CDD85F411BC23C4E008534E3 /* MATextAttributeProtocol.swift in Sources */,
+				CDD85F411BC23C4E008534E3 /* MATextAttributesProvider.swift in Sources */,
 				CDFDBB611BC236A0002C01A1 /* MMHTMLParser.m in Sources */,
 				CDD85F431BC23C5A008534E3 /* MAMarkdown.swift in Sources */,
 				CDFDBB5F1BC236A0002C01A1 /* MMGenerator.m in Sources */,
-				CDD85F401BC23C48008534E3 /* MATextAttribute.swift in Sources */,
+				CDD85F401BC23C48008534E3 /* MATextAttributes.swift in Sources */,
 				CDFDBB6B1BC236A0002C01A1 /* MMScanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,8 +1,8 @@
 //
-//  MAMarkdown.swift
+//  MATextAttributesProtocol.swift
 //  MarkdownAttribute
 //
-//  Created by Junyuan Hong on 10/3/15.
+//  Created by Junyuan Hong on 10/5/15.
 //
 //    The MIT License (MIT)
 //
@@ -26,18 +26,35 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
-public class MAMarkdown {
+public typealias AttributeDict = [String : AnyObject]
 
-    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions = .None) throws -> NSAttributedString {
-        if mstring == nil || mstring!.isEmpty {
-            return NSAttributedString()
-        }
-        let parser = MMParser(extensions: extensions)
-        let generator = MAGenerator()
-        
-        let document = try parser.parseMarkdown(mstring) // would return nil?
-        
-        return generator.generateAttributedString(document)
-    }
+/// Provide text attributes for markdown.
+public protocol MATextAttributesProvider {
     
+    var text: AttributeDict { get }
+    
+    var paragraph: AttributeDict { get }
+    
+    func header(level: Int) -> AttributeDict
+    var header1: AttributeDict { get }
+    var header2: AttributeDict { get }
+    var header3: AttributeDict { get }
+    var header4: AttributeDict { get }
+    var header5: AttributeDict { get }
+    var header6: AttributeDict { get }
+    
+    var emphasis: AttributeDict { get }
+    var strong: AttributeDict { get }
+    
+    var link: AttributeDict { get }
+    
+    var codeBlock: AttributeDict { get }
+    var inlineCode: AttributeDict { get }
+    
+    var blockQuote: AttributeDict { get }
+    
+    var orderedList: AttributeDict { get }
+    var unorderedList: AttributeDict { get }
+    var listItem: AttributeDict { get }
+
 }

@@ -85,6 +85,9 @@
 		CD556E311BC01E3C0006C03F /* CMPlatformDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2E1BC01E3C0006C03F /* CMPlatformDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD556E321BC01E3C0006C03F /* CMTextAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD556E331BC01E3C0006C03F /* CMTextAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = CD556E301BC01E3C0006C03F /* CMTextAttributes.m */; settings = {ASSET_TAGS = (); }; };
+		CD5AC5FC1BC22C20003894B0 /* Colorfy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD9A0E41BC219C000EA36C3 /* MATextAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */; settings = {ASSET_TAGS = (); }; };
+		CDD9A0E61BC21BD200EA36C3 /* MATextAttributeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -237,6 +240,9 @@
 		CD556E2F1BC01E3C0006C03F /* CMTextAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMTextAttributes.h; sourceTree = "<group>"; };
 		CD556E301BC01E3C0006C03F /* CMTextAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMTextAttributes.m; sourceTree = "<group>"; };
 		CD556E351BC028770006C03F /* MarkdownExample.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MarkdownExample.playground; sourceTree = "<group>"; };
+		CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colorfy.swift; sourceTree = "<group>"; };
+		CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttribute.swift; sourceTree = "<group>"; };
+		CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MATextAttributeProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +435,8 @@
 				CD556E341BC01E810006C03F /* CocoaMarkdown */,
 				CD556E251BC0135C0006C03F /* MAMarkdown.swift */,
 				CD556E2C1BC01BAA0006C03F /* MAGenerator.swift */,
+				CDD9A0E51BC21BD200EA36C3 /* MATextAttributeProtocol.swift */,
+				CDD9A0E31BC219C000EA36C3 /* MATextAttribute.swift */,
 				CD556DC51BC0106C0006C03F /* MarkdownAttribute.h */,
 				CD556DC71BC0106C0006C03F /* Info.plist */,
 			);
@@ -442,6 +450,7 @@
 				CD05F5EC1BC1207B0029C59A /* NSAttributedString+Diff.swift */,
 				CD05F5ED1BC1207B0029C59A /* MDTestTests.swift */,
 				CD05F5EE1BC1207B0029C59A /* SimpleTests.swift */,
+				CD5AC5FB1BC22C20003894B0 /* Colorfy.swift */,
 				CD05F5121BC11FE40029C59A /* testfiles */,
 				CD556DD31BC0106C0006C03F /* Info.plist */,
 			);
@@ -653,12 +662,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD556E171BC0133F0006C03F /* MMElement.m in Sources */,
+				CDD9A0E61BC21BD200EA36C3 /* MATextAttributeProtocol.swift in Sources */,
 				CD556E1B1BC0133F0006C03F /* MMHTMLParser.m in Sources */,
 				CD556E241BC0133F0006C03F /* MMSpanParser.m in Sources */,
 				CD556E331BC01E3C0006C03F /* CMTextAttributes.m in Sources */,
 				CD556E201BC0133F0006C03F /* MMParser.m in Sources */,
 				CD556E151BC0133F0006C03F /* MMDocument.m in Sources */,
 				CD556E191BC0133F0006C03F /* MMGenerator.m in Sources */,
+				CDD9A0E41BC219C000EA36C3 /* MATextAttribute.swift in Sources */,
 				CD556E1E1BC0133F0006C03F /* MMMarkdown.m in Sources */,
 				CD556E2D1BC01BAA0006C03F /* MAGenerator.swift in Sources */,
 				CD556E221BC0133F0006C03F /* MMScanner.m in Sources */,
@@ -670,6 +681,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD5AC5FC1BC22C20003894B0 /* Colorfy.swift in Sources */,
 				CD05F5F11BC1207B0029C59A /* MDTestTests.swift in Sources */,
 				CD05F5F21BC1207B0029C59A /* SimpleTests.swift in Sources */,
 				CD05F5F01BC1207B0029C59A /* NSAttributedString+Diff.swift in Sources */,

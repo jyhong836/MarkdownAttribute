@@ -76,7 +76,7 @@ extension NSAttributedString {
         }
         diffDescription += "\n"
         
-        return diffDescription
+        return Colorfy.color(diffDescription, r: 80, g: 80, b: 200)
     }
 
 
@@ -107,7 +107,7 @@ extension NSAttributedString {
                 let prefix = range.location > 0 ? ellipsis : ""
                 let suffix = (s.length - range.location > range.length) ? ellipsis : ""
 
-                return "\(prefix)\(substring)\(suffix)"
+                return "\(prefix)\(Colorfy.color(substring, r: 80, g: 80, b: 200))\(suffix)"
             }
 
             // Show this many characters before and after the first difference
@@ -126,7 +126,7 @@ extension NSAttributedString {
             let markerPrefix = String(count: markerPosition, repeatedValue: " " as Character)
             let markerLine = "\(markerPrefix)\(markerArrow)"
 
-            return "Difference at index \(index):\n\(sub1)\n\(sub2)\n\(markerLine)"
+            return "Difference begin at index \(index):\n\(sub1)\n\(sub2)\n\(markerLine)"
         }
 
         switch firstDifferenceResult {

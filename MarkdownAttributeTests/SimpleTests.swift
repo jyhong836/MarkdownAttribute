@@ -9,6 +9,8 @@
 @testable import MarkdownAttribute
 import XCTest
 
+
+
 class SimpleTests: XCTestCase {
     
     private let defaultEncoding = NSUTF8StringEncoding
@@ -23,7 +25,10 @@ class SimpleTests: XCTestCase {
             let actual = try MAMarkdown.attributedString(markdown: markdown, extensions: defaultExtension)
             XCTAssert(actual.isEqualToAttributedString(expected), message)
             
-            print(": actual\n: expected")
+            print(Colorfy.red(": actual"))
+            print("\(actual)")
+            print(Colorfy.red(": expected"))
+            print("\(expected)")
             print(actual.prettyFirstDifferenceToSting(otherString: expected))
         } catch {
             XCTFail("\(message)\n====== ERROR =====\n\(error)")

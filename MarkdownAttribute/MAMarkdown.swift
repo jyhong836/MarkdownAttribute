@@ -27,13 +27,21 @@
 //    SOFTWARE.
 
 public class MAMarkdown {
-
-    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions = .None) throws -> NSAttributedString {
+    
+    public static func attributedString(markdown mstring: String?, textAttributesProvider: MATextAttributesProvider) throws -> NSAttributedString {
+        return try self.attributedString(markdown: mstring, textAttributesProvider: textAttributesProvider, extensions: .None)
+    }
+    
+    public static func attributedString(markdown mstring: String?, extensions: MMMarkdownExtensions) throws -> NSAttributedString {
+        return try self.attributedString(markdown: mstring, textAttributesProvider: MATextAttributes(), extensions: extensions)
+    }
+    
+    public static func attributedString(markdown mstring: String?, textAttributesProvider: MATextAttributesProvider = MATextAttributes(), extensions: MMMarkdownExtensions = .None) throws -> NSAttributedString {
         if mstring == nil || mstring!.isEmpty {
             return NSAttributedString()
         }
         let parser = MMParser(extensions: extensions)
-        let generator = MAGenerator()
+        let generator = MAGenerator(textAttributesProvider: textAttributesProvider)
         
         let document = try parser.parseMarkdown(mstring) // would return nil?
         

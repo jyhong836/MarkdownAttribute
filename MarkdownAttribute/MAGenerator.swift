@@ -39,7 +39,7 @@ class MAGenerator {
     
     /// Create generator with MATextAttributesProvider.
     /// By default the provider is MATextAttributes.
-    init(textAttributesProvider provider: MATextAttributesProvider = MATextAttributes()) {
+    init(textAttributesProvider provider: MATextAttributesProvider) {
         attributeProvider = provider
     }
     

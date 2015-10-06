@@ -33,6 +33,13 @@ class SimpleTests: XCTestCase {
         }
     }
     
+    func testBare() {
+        let input = "This bare input."
+        let expected = "This bare input.\n"
+        
+        STAssertTransform(input, expected)
+    }
+    
     func testBold()
     {
         let input = "This is **bold**. This is also __bold__."
@@ -73,7 +80,6 @@ class SimpleTests: XCTestCase {
         STAssertTransform(input, expected)
     }
     
-    /*
     func testLinkBare_withAutoHyperLink()
     {
         //TODO: implement some way of setting AutoHyperLink programmatically
@@ -81,10 +87,8 @@ class SimpleTests: XCTestCase {
         let input = "Have you visited http://www.example.com before?"
         let expected = "<p>Have you visited <a href=\"http://www.example.com\">http://www.example.com</a> before?</p>\n"
         
-        let actual = m.transform(input)
-        
-        XCTAssertEqual(expected, actual)
-    }*/
+        STAssertTransform(input, expected)
+    }
     
     func testLinkAlt()
     {

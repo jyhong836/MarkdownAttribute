@@ -34,25 +34,37 @@
 
 class MATextAttributes: MATextAttributesProvider {
     
-    let defaultFont = NSFont(name: "Times-Roman", size: 12.0)
-    let defaultBoldFont = NSFont(name: "Times-Bold", size: 12.0)
+    #if os(OSX)
+    var defaultFont = NSFont(name: "Times-Roman", size: 12.0)
+    var defaultBoldFont = NSFont(name: "Times-Bold", size: 12.0)
+    var defaultItalicFont = NSFont(name: "Times-Italic", size: 12.0)
+    #elseif os(iOS)
+    var defaultFont = UIFont(name: "Times-Roman", size: 12.0)
+    var defaultBoldFont = UIFont(name: "Times-Bold", size: 12.0)
+    var defaultItalicFont = UIFont(name: "Times-Italic", size: 12.0)
+    #endif
+    var defaultParagraphStyle: NSMutableParagraphStyle {
+        let ps = NSMutableParagraphStyle()
+        ps.paragraphSpacing = 12.0
+        ps.defaultTabInterval = 36
+        ps.baseWritingDirection = .LeftToRight
+        return ps
+    }
     
     var text: AttributeDict {
         get {
-            #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(12.0)!]
-            #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-            #endif
+//            #if os(OSX)
+//                return [NSFontAttributeName : NSFont.userFontOfSize(12.0)!]
+//            #elseif os(iOS)
+//                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
+//            #endif
+            return [NSFontAttributeName : defaultFont!, NSKernAttributeName : 0]
         }
     }
     
     var paragraph: AttributeDict {
         get {
-            let ps = NSMutableParagraphStyle()
-            ps.paragraphSpacing = 12.0
-            ps.defaultTabInterval = 36
-            return [NSParagraphStyleAttributeName : ps]
+            return [NSParagraphStyleAttributeName : defaultParagraphStyle]
         }
     }
 
@@ -130,7 +142,7 @@ class MATextAttributes: MATextAttributesProvider {
     
     var emphasis: AttributeDict {
         get {
-            return [NSFontAttributeName : defaultBoldFont!]
+            return [NSFontAttributeName : defaultItalicFont!]
         }
     }
     var strong: AttributeDict {
@@ -142,16 +154,16 @@ class MATextAttributes: MATextAttributesProvider {
     var link: AttributeDict {
         get {
             #if os(OSX)
-                return [NSForegroundColorAttributeName : NSColor.blueColor(),
+                return [NSForegroundColorAttributeName : NSColor(red: 0.0, green: 0.0, blue: 238/255, alpha: 1.0),
                         NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
                 #elseif os(iOS)
-                return [NSForegroundColorAttributeName : UIColor.blueColor(),
+                return [NSForegroundColorAttributeName : UIColor(red: 0.0, green: 0.0, blue: 238/255, alpha: 1.0),
                         NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
             #endif
         }
     }
     
-    var indentedPraragraphStyle: NSParagraphStyle {
+    var indentedPraragraphStyle: NSMutableParagraphStyle {
         get {
             let style = NSMutableParagraphStyle()
             style.firstLineHeadIndent = 30
@@ -200,12 +212,16 @@ class MATextAttributes: MATextAttributesProvider {
     
     var orderedList: AttributeDict {
         get {
-            return [NSParagraphStyleAttributeName : indentedPraragraphStyle]
+            let ps = indentedPraragraphStyle
+            ps.textLists = [NSTextList(markerFormat: "({decimal})", options: 0)]
+            return [NSParagraphStyleAttributeName : ps]
         }
     }
     var unorderedList: AttributeDict {
         get {
-            return [NSParagraphStyleAttributeName : indentedPraragraphStyle]
+            let ps = indentedPraragraphStyle
+            ps.textLists = [NSTextList(markerFormat: "({box})", options: 0)]
+            return [NSParagraphStyleAttributeName : ps]
         }
     }
     var listItem: AttributeDict {

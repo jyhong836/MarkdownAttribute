@@ -59,7 +59,7 @@ class MAGenerator {
             if element.type == MMElementTypeHTML {
                 attributedStringFromHTML(markdown.substringWithRange(element.range))
             } else {
-                generate(attributedString: astr, element: element, baseAttributes: nil)
+                generate(attributedString: astr, element: element, baseAttributes: attributeProvider.text)
             }
         }
         
@@ -79,13 +79,14 @@ class MAGenerator {
         switch element.type.rawValue {
         case MMElementTypeNumberedList.rawValue:
             element.level = 0 // FIXME: This is a workaround, fix it in future
+            // TODO: add NSTextList to paragraphStyle array
         case MMElementTypeListItem.rawValue:
             switch element.parent.type.rawValue {
             case MMElementTypeBulletedList.rawValue:
-                astr.appendAttributedString(NSAttributedString(string: "\u{2022} "))
+                astr.appendAttributedString(NSAttributedString(string: "\t\u{2022}\t"))
             case MMElementTypeNumberedList.rawValue:
                 element.parent.level++
-                astr.appendAttributedString(NSAttributedString(string: "\(element.parent.level). "))
+                astr.appendAttributedString(NSAttributedString(string: "\t\(element.parent.level).\t"))
             default:
                 fatalError("Parent of list item must be list")
             }

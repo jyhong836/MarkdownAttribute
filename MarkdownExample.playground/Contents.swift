@@ -34,6 +34,7 @@ let mstring = [
     "This is `inline code`.",
     "",
     "This is a HTML link: <a href=\"jyhong.com\">jyhong</a>",
+    "An image goes here: ![alt text][1]\n\n  [1]: http://www.google.com/intl/en_ALL/images/logo.gif",
     "end"
     ].joinWithSeparator("\n")
 

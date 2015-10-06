@@ -30,10 +30,20 @@
     import Cocoa
     
     typealias MAFontSymbolicTraits = NSFontSymbolicTraits
+    typealias MAFont = NSFont
+    typealias CMUnderlineStyle = NSInteger
+    
+    let CMFontTraitItalic = UInt32(NSFontItalicTrait)
+    let CMFontTraitBold = UInt32(NSFontBoldTrait)
 #elseif os(iOS)
     import UIKit
     
     typealias MAFontSymbolicTraits = UIFontDescriptorSymbolicTraits
+    typealias MAFont = UIFont
+    typealias CMUnderlineStyle = NSUnderlineStyle
+    
+    let CMFontTraitItalic = UIFontDescriptorSymbolicTraits.TraitItalic
+    let CMFontTraitBold = UIFontDescriptorSymbolicTraits.TraitBold
 #endif
 
 /// A generator is used to generate NSAttributedString according to given MMDocument.
@@ -110,10 +120,6 @@ class MAGenerator {
         }
     #endif
     
-    func fontWithTraits(traits: MAFontSymbolicTraits) {
-        
-    }
-    
     /// Using MMElement to generate NSAttributedString, and add to input string.
     /// Set the document of instance before invoke this method.
     ///
@@ -146,7 +152,6 @@ class MAGenerator {
                 default:
                     fatalError("Parent of list item must be list")
                 }
-
             #endif
 //        case MMElementTypeCodeBlock.rawValue:
 //            break

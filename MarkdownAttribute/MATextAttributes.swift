@@ -35,14 +35,11 @@
 class MATextAttributes: MATextAttributesProvider {
     
     #if os(OSX)
-    var defaultFont = NSFont(name: "Times-Roman", size: 12.0)
-    var defaultBoldFont = NSFont(name: "Times-Bold", size: 12.0)
-    var defaultItalicFont = NSFont(name: "Times-Italic", size: 12.0)
+        var defaultFont = MAFont.userFontOfSize(12.0)!
     #elseif os(iOS)
-    var defaultFont = UIFont(name: "Times-Roman", size: 12.0)
-    var defaultBoldFont = UIFont(name: "Times-Bold", size: 12.0)
-    var defaultItalicFont = UIFont(name: "Times-Italic", size: 12.0)
+        var defaultFont = MAFont.preferredFontForTextStyle(UIFontTextStyleBody)
     #endif
+    
     var defaultParagraphStyle: NSMutableParagraphStyle {
         let ps = NSMutableParagraphStyle()
         ps.paragraphSpacing = 12.0
@@ -51,14 +48,26 @@ class MATextAttributes: MATextAttributesProvider {
         return ps
     }
     
+    
+    /// Get font from baseFont with traits
+    func font(traits traits: MAFontSymbolicTraits, baseFont: MAFont) -> MAFont {
+        #if os(OSX)
+            let combinedTraits = baseFont.fontDescriptor.symbolicTraits | (traits  & 0xFFFF)
+//            let desc = baseFont.fontDescriptor.fontDescriptorWithSymbolicTraits(combinedTraits) // This does not work
+            let desc = NSFontDescriptor(fontAttributes: [NSFontFamilyAttribute: baseFont.familyName!, NSFontTraitsAttribute: [NSFontSymbolicTrait:NSNumber(unsignedInt: combinedTraits)]])
+            return MAFont(descriptor: desc, size: baseFont.pointSize)!
+        #elseif os(iOS)
+            let combinedTraits = baseFont.fontDescriptor().symbolicTraits.union(traits)
+            let desc = baseFont.fontDescriptor().fontDescriptorWithSymbolicTraits(combinedTraits)
+            return MAFont(descriptor: desc, size: baseFont.pointSize)
+        #endif
+    }
+    
+    // MARK: - Conform to MATextAttributesProvider
+    
     var text: AttributeDict {
         get {
-//            #if os(OSX)
-//                return [NSFontAttributeName : NSFont.userFontOfSize(12.0)!]
-//            #elseif os(iOS)
-//                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-//            #endif
-            return [NSFontAttributeName : defaultFont!, NSKernAttributeName : 0]
+            return [NSFontAttributeName : defaultFont, NSKernAttributeName : 0]
         }
     }
     
@@ -81,9 +90,9 @@ class MATextAttributes: MATextAttributesProvider {
     var header2: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(18.0)!]
-                #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+                return [NSFontAttributeName : MAFont.userFontOfSize(18.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
     }
@@ -91,9 +100,9 @@ class MATextAttributes: MATextAttributesProvider {
     var header3: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(14.0)!]
-                #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+                return [NSFontAttributeName : MAFont.userFontOfSize(14.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
     }
@@ -101,9 +110,9 @@ class MATextAttributes: MATextAttributesProvider {
     var header4: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(12.0)!]
-                #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+                return [NSFontAttributeName : MAFont.userFontOfSize(12.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
     }
@@ -111,9 +120,9 @@ class MATextAttributes: MATextAttributesProvider {
     var header5: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(10.0)!]
-                #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+                return [NSFontAttributeName : MAFont.userFontOfSize(10.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
     }
@@ -121,9 +130,9 @@ class MATextAttributes: MATextAttributesProvider {
     var header6: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(8.0)!]
-                #elseif os(iOS)
-                return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
+                return [NSFontAttributeName : MAFont.userFontOfSize(8.0)!]
+            #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
     }
@@ -142,12 +151,12 @@ class MATextAttributes: MATextAttributesProvider {
     
     var emphasis: AttributeDict {
         get {
-            return [NSFontAttributeName : defaultItalicFont!]
+            return [NSFontAttributeName : font(traits: CMFontTraitItalic, baseFont: defaultFont)]
         }
     }
     var strong: AttributeDict {
         get {
-            return [NSFontAttributeName : defaultBoldFont!]
+            return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFont)]
         }
     }
     
@@ -156,7 +165,7 @@ class MATextAttributes: MATextAttributesProvider {
             #if os(OSX)
                 return [NSForegroundColorAttributeName : NSColor(red: 0.0, green: 0.0, blue: 238/255, alpha: 1.0),
                         NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
-                #elseif os(iOS)
+            #elseif os(iOS)
                 return [NSForegroundColorAttributeName : UIColor(red: 0.0, green: 0.0, blue: 238/255, alpha: 1.0),
                         NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
             #endif
@@ -176,10 +185,10 @@ class MATextAttributes: MATextAttributesProvider {
     var MonospaceFont: UIFont {
         get {
             let size = UIFont.preferredFontForTextStyle(UIFontTextStyleBody).pointSize
-            if let mfont = UIFont(name: "Menlo", size: size) {
+            if let mfont = MAFont(name: "Menlo", size: size) {
                 return mfont
             } else {
-                return UIFont(name: "Courier", size: size)!
+                return MAFont(name: "Courier", size: size)!
             }
         }
     }
@@ -188,8 +197,8 @@ class MATextAttributes: MATextAttributesProvider {
     var codeBlock: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFixedPitchFontOfSize(12.0)!, NSParagraphStyleAttributeName : indentedPraragraphStyle]
-                #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.userFixedPitchFontOfSize(12.0)!, NSParagraphStyleAttributeName : indentedPraragraphStyle]
+            #elseif os(iOS)
                 return [NSFontAttributeName : MonospaceFont, NSParagraphStyleAttributeName : indentedPraragraphStyle]
             #endif
         }
@@ -197,8 +206,8 @@ class MATextAttributes: MATextAttributesProvider {
     var inlineCode: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFixedPitchFontOfSize(12.0)!]
-                #elseif os(iOS)
+                return [NSFontAttributeName : MAFont.userFixedPitchFontOfSize(12.0)!]
+            #elseif os(iOS)
                 return [NSFontAttributeName : MonospaceFont]
             #endif
         }
@@ -214,7 +223,7 @@ class MATextAttributes: MATextAttributesProvider {
         get {
             let ps = indentedPraragraphStyle
             #if os(OSX)
-            ps.textLists = [NSTextList(markerFormat: "{decimal}", options: 0)]
+                ps.textLists = [NSTextList(markerFormat: "{decimal}", options: 0)]
             #endif
             return [NSParagraphStyleAttributeName : ps]
         }

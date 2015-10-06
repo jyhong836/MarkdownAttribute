@@ -144,7 +144,7 @@ class SimpleTests: XCTestCase {
     func testHeader2()
     {
         let input = "##Header 2\nHeader 2\n--------"
-        let expected = "<h2>Header 2</h2>\n\n<h2>Header 2</h2>\n"
+        let expected = "<h2>Header 2</h2>\n\n<h3>Header 3</h3>\n<h4>Header 4</h4>\n<h5>Header 5</h5>\n<h6>Header 6</h6>\n"
         
         STAssertTransform(input, expected)
     }

@@ -39,6 +39,9 @@ class MATextAttributes: MATextAttributesProvider {
     #elseif os(iOS)
         var defaultFont = MAFont.preferredFontForTextStyle(UIFontTextStyleBody)
     #endif
+    func defaultFontOfSize(size: CGFloat) -> MAFont {
+        return MAFont(name: defaultFont.fontName, size: size)!
+    }
     
     var defaultParagraphStyle: NSMutableParagraphStyle {
         let ps = NSMutableParagraphStyle()
@@ -48,6 +51,18 @@ class MATextAttributes: MATextAttributesProvider {
         return ps
     }
     
+    var headMinLineHeights: [CGFloat] = [28, 22, 17, 14, 13, 10]
+    var headParagraphSpacing: [CGFloat] = [16.08, 14.94, 14.04, 15.96, 16.6332, 20.97]
+    
+    func paragraphStyle(headLevel level: Int) -> NSMutableParagraphStyle {
+        let ps = defaultParagraphStyle
+        #if os(OSX)
+            ps.headerLevel = level
+        #endif
+        ps.minimumLineHeight = headMinLineHeights[level - 1]
+        ps.paragraphSpacing = headParagraphSpacing[level - 1]
+        return ps
+    }
     
     /// Get font from baseFont with traits
     func font(traits traits: MAFontSymbolicTraits, baseFont: MAFont) -> MAFont {
@@ -80,8 +95,8 @@ class MATextAttributes: MATextAttributesProvider {
     var header1: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : NSFont.userFontOfSize(24.0)!]
-                #elseif os(iOS)
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(24.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 1)]
+            #elseif os(iOS)
                 return [NSFontAttributeName : UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
         }
@@ -90,7 +105,7 @@ class MATextAttributes: MATextAttributesProvider {
     var header2: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFontOfSize(18.0)!]
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(18.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 2)]
             #elseif os(iOS)
                 return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
@@ -100,7 +115,7 @@ class MATextAttributes: MATextAttributesProvider {
     var header3: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFontOfSize(14.0)!]
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(14.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 3)]
             #elseif os(iOS)
                 return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
@@ -110,7 +125,7 @@ class MATextAttributes: MATextAttributesProvider {
     var header4: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFontOfSize(12.0)!]
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(12.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 4)]
             #elseif os(iOS)
                 return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
@@ -120,7 +135,7 @@ class MATextAttributes: MATextAttributesProvider {
     var header5: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFontOfSize(10.0)!]
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(10.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 5)]
             #elseif os(iOS)
                 return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif
@@ -130,7 +145,7 @@ class MATextAttributes: MATextAttributesProvider {
     var header6: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFontOfSize(8.0)!]
+                return [NSFontAttributeName : font(traits: CMFontTraitBold, baseFont: defaultFontOfSize(8.0)), NSParagraphStyleAttributeName : paragraphStyle(headLevel: 6)]
             #elseif os(iOS)
                 return [NSFontAttributeName : MAFont.preferredFontForTextStyle(UIFontTextStyleHeadline)]
             #endif

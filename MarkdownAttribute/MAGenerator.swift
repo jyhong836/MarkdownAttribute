@@ -28,8 +28,12 @@
 
 #if os(OSX)
     import Cocoa
+    
+    typealias MAFontSymbolicTraits = NSFontSymbolicTraits
 #elseif os(iOS)
     import UIKit
+    
+    typealias MAFontSymbolicTraits = UIFontDescriptorSymbolicTraits
 #endif
 
 /// A generator is used to generate NSAttributedString according to given MMDocument.
@@ -66,6 +70,8 @@ class MAGenerator {
         return astr
     }
     
+    // MARK: - Private generate method
+    
     /// New attributes will be added to base attributes. 
     /// If there are duplicated attributes, the new one will be used.
     private func combineAttributes(new new: AttributeDict, base: AttributeDict?) -> AttributeDict {
@@ -79,25 +85,33 @@ class MAGenerator {
                     combined[key] = value
                 } else { // TODO: process font traits
                     // conflict keys
-                    if key == NSParagraphStyleAttributeName {
-                        // Combine text lists.
-                        let baseLists = (value as! NSParagraphStyle).textLists
-                        let newPS = combined[key] as! NSMutableParagraphStyle
-                        newPS.textLists = baseLists + newPS.textLists
-                        combined[key] = newPS
-                    }
+                    #if os(OSX)
+                        if key == NSParagraphStyleAttributeName {
+                            // Combine text lists.
+                            let baseLists = (value as! NSParagraphStyle).textLists
+                            let newPS = combined[key] as! NSMutableParagraphStyle
+                            newPS.textLists = baseLists + newPS.textLists
+                            combined[key] = newPS
+                        }
+                    #endif
                 }
             }
         }
         return combined
     }
     
-    /// Get list item marker and relevant characters in string, which
-    /// will be added to the header of item line. The count of lists 
-    /// must larger than 0.
-    private func listItemMarkerFromTextLists(lists: [NSTextList], number: UInt) -> String {
-        return "".stringByPaddingToLength(lists.count, withString: "\t", startingAtIndex: 0) +
-            "\(lists.last!.markerForItemNumber(Int(number))) "
+    #if os(OSX)
+        /// Get list item marker and relevant characters in string, which
+        /// will be added to the header of item line. The count of lists 
+        /// must larger than 0.
+        private func listItemMarkerFromTextLists(lists: [NSTextList], number: UInt) -> String {
+            return "".stringByPaddingToLength(lists.count, withString: "\t", startingAtIndex: 0) +
+                "\(lists.last!.markerForItemNumber(Int(number))) "
+        }
+    #endif
+    
+    func fontWithTraits(traits: MAFontSymbolicTraits) {
+        
     }
     
     /// Using MMElement to generate NSAttributedString, and add to input string.
@@ -119,8 +133,21 @@ class MAGenerator {
             // TODO: add NSTextList to paragraphStyle array
         case MMElementTypeListItem.rawValue:
             let ps = newAttributes[NSParagraphStyleAttributeName] as! NSParagraphStyle
-            element.parent.level++
-            astr.appendAttributedString(NSAttributedString(string: listItemMarkerFromTextLists(ps.textLists, number: element.parent.level)))
+            #if os(OSX)
+                element.parent.level++
+                astr.appendAttributedString(NSAttributedString(string: listItemMarkerFromTextLists(ps.textLists, number: element.parent.level)))
+            #elseif os(iOS)
+                switch element.parent.type.rawValue {
+                case MMElementTypeBulletedList.rawValue:
+                    astr.appendAttributedString(NSAttributedString(string: "\t\u{2022}\t"))
+                case MMElementTypeNumberedList.rawValue:
+                    element.parent.level++
+                    astr.appendAttributedString(NSAttributedString(string: "\t\(element.parent.level).\t"))
+                default:
+                    fatalError("Parent of list item must be list")
+                }
+
+            #endif
 //        case MMElementTypeCodeBlock.rawValue:
 //            break
         case MMElementTypeEntity.rawValue:

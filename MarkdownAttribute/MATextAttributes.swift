@@ -213,14 +213,18 @@ class MATextAttributes: MATextAttributesProvider {
     var orderedList: AttributeDict {
         get {
             let ps = indentedPraragraphStyle
+            #if os(OSX)
             ps.textLists = [NSTextList(markerFormat: "{decimal}", options: 0)]
+            #endif
             return [NSParagraphStyleAttributeName : ps]
         }
     }
     var unorderedList: AttributeDict {
         get {
             let ps = indentedPraragraphStyle
-            ps.textLists = [NSTextList(markerFormat: "{disc}", options: 0)]
+            #if os(OSX)
+                ps.textLists = [NSTextList(markerFormat: "{disc}", options: 0)]
+            #endif
             return [NSParagraphStyleAttributeName : ps]
         }
     }

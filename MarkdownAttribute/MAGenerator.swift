@@ -66,6 +66,40 @@ class MAGenerator {
         return astr
     }
     
+    /// New attributes will be added to base attributes. 
+    /// If there are duplicated attributes, the new one will be used.
+    private func combineAttributes(new new: AttributeDict, base: AttributeDict?) -> AttributeDict {
+        if new.count == 0 {
+            return (base != nil) ? base! : new
+        }
+        var combined = new
+        if let baseAttr = base {
+            for (key, value) in baseAttr {
+                if combined[key] == nil {
+                    combined[key] = value
+                } else { // TODO: process font traits
+                    // conflict keys
+                    if key == NSParagraphStyleAttributeName {
+                        // Combine text lists.
+                        let baseLists = (value as! NSParagraphStyle).textLists
+                        let newPS = combined[key] as! NSMutableParagraphStyle
+                        newPS.textLists = baseLists + newPS.textLists
+                        combined[key] = newPS
+                    }
+                }
+            }
+        }
+        return combined
+    }
+    
+    /// Get list item marker and relevant characters in string, which
+    /// will be added to the header of item line. The count of lists 
+    /// must larger than 0.
+    private func listItemMarkerFromTextLists(lists: [NSTextList], number: UInt) -> String {
+        return "".stringByPaddingToLength(lists.count, withString: "\t", startingAtIndex: 0) +
+            "\(lists.last!.markerForItemNumber(Int(number))) "
+    }
+    
     /// Using MMElement to generate NSAttributedString, and add to input string.
     /// Set the document of instance before invoke this method.
     ///
@@ -74,24 +108,23 @@ class MAGenerator {
     /// - parameter baseAttributes: the based attributes.
     private func generate(attributedString astr: NSMutableAttributedString, element: MMElement, baseAttributes: AttributeDict?) {
         let (elemAttrs, newLine) = attributesForElement(element)
+        let newAttributes = combineAttributes(new: elemAttrs, base: baseAttributes)
         
         // Add some character for special element type
         switch element.type.rawValue {
+        case MMElementTypeBulletedList.rawValue:
+            fallthrough
         case MMElementTypeNumberedList.rawValue:
             element.level = 0 // FIXME: This is a workaround, fix it in future
             // TODO: add NSTextList to paragraphStyle array
         case MMElementTypeListItem.rawValue:
-            switch element.parent.type.rawValue {
-            case MMElementTypeBulletedList.rawValue:
-                astr.appendAttributedString(NSAttributedString(string: "\t\u{2022}\t"))
-            case MMElementTypeNumberedList.rawValue:
-                element.parent.level++
-                astr.appendAttributedString(NSAttributedString(string: "\t\(element.parent.level).\t"))
-            default:
-                fatalError("Parent of list item must be list")
-            }
-        case MMElementTypeCodeBlock.rawValue:
-            break
+            let ps = newAttributes[NSParagraphStyleAttributeName] as! NSParagraphStyle
+            element.parent.level++
+            astr.appendAttributedString(NSAttributedString(string: listItemMarkerFromTextLists(ps.textLists, number: element.parent.level)))
+//        case MMElementTypeCodeBlock.rawValue:
+//            break
+        case MMElementTypeEntity.rawValue:
+            astr.appendAttributedString(NSAttributedString(string: element.stringValue))
         default: break
         }
         
@@ -101,14 +134,6 @@ class MAGenerator {
                     astr.appendAttributedString(NSAttributedString(string: "\n"))
                     // TODO: apply attributes??
                 } else {
-                    var newAttributes = elemAttrs
-                    if let baseAttr = baseAttributes {
-                        for (key, value) in baseAttr {
-                            if newAttributes[key] == nil {
-                                newAttributes[key] = value
-                            } // TODO: process font traits
-                        }
-                    }
                     let appendedString = NSAttributedString(string: NSString(string: document!.markdown).substringWithRange(child.range), attributes: newAttributes)
                     astr.appendAttributedString(appendedString)
                 }
@@ -116,7 +141,7 @@ class MAGenerator {
                 attributedStringFromHTML(NSString(string: document!.markdown).substringWithRange(child.range))
                 // TODO: apply attributes??
             } else {
-                generate(attributedString: astr, element: child, baseAttributes: elemAttrs)
+                generate(attributedString: astr, element: child, baseAttributes: newAttributes)
             }
         }
         
@@ -193,8 +218,8 @@ class MAGenerator {
             return ([:], false)
         case MMElementTypeDefinition.rawValue:
             return ([:], false)
-        case MMElementTypeEntity.rawValue:
-            return ([:], false)
+//        case MMElementTypeEntity.rawValue: // no attributes
+//            return ([:], false)
         case MMElementTypeTable.rawValue:
             return ([:], false)
         case MMElementTypeTableHeader.rawValue:

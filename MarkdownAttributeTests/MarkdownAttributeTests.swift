@@ -43,12 +43,13 @@ class MarkdownAttributeTests: XCTestCase {
     
     func testExample() {
         let mstring = [
-            "line1, ",
-            "line2"
+            "+ line1, ",
+            "       + line2"
             ].joinWithSeparator("\n")
         
         do {
             let astr = try MAMarkdown.attributedString(markdown: mstring, extensions: MMMarkdownExtensions.GitHubFlavored)
+            print("\(astr)")
         } catch {
             NSLog("\(error)")
         }

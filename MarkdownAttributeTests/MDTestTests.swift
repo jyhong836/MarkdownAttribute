@@ -44,6 +44,7 @@ class MDTestTests: XCTestCase {
     }
     
     func getTests() -> [TestCaseData] {
+        let mm = MAMarkdown(extensions: MMMarkdownExtensions.GitHubFlavored)
         var tests = Array<TestCaseData>()
         
         let bundle = NSBundle(forClass: MDTestTests.self)
@@ -90,7 +91,7 @@ class MDTestTests: XCTestCase {
                         // Transform the source into the actual result, and
                         // normalize both the actual and expected results
                         do {
-                            let actualResult = try MAMarkdown.attributedString(markdown: sourceContent, extensions: MMMarkdownExtensions.GitHubFlavored)
+                            let actualResult = try mm.attributedString(markdown: sourceContent)
 //                            let expectedResult = removeWhitespace(expectedContent!)
                             let expectedResult = expectedContent!
                             

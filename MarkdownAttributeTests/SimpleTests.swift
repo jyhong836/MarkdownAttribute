@@ -18,9 +18,10 @@ class SimpleTests: XCTestCase {
     }
     
     func STAssertTransform(markdown: String, _ html: String, _ message: String = "fail to transform to expected") {
+        let mm = MAMarkdown(extensions: defaultExtension)
         do {
             let expected = try NSAttributedString(data: html.dataUsingEncoding(defaultEncoding)!, options: [NSDocumentTypeDocumentOption : NSHTMLTextDocumentType], documentAttributes: nil)
-            let actual = try MAMarkdown.attributedString(markdown: markdown, extensions: defaultExtension)
+            let actual = try mm.attributedString(markdown: markdown)
             XCTAssert(actual.isEqualToAttributedString(expected), message)
             
             print(Colorfy.red(": actual"))

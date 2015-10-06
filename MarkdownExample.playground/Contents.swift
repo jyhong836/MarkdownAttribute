@@ -5,6 +5,8 @@ import Cocoa
 import XCPlayground
 import MarkdownAttribute
 
+let mm = MAMarkdown(extensions: MMMarkdownExtensions.GitHubFlavored)
+
 let mstring = [
     "# header level 1",
     "## header level 2",
@@ -40,7 +42,7 @@ let mstring = [
 
 do {
 //: Let's have a look at the effect
-    let astr = try MAMarkdown.attributedString(markdown: mstring, extensions: MMMarkdownExtensions.GitHubFlavored)
+    let astr = try mm.attributedString(markdown: mstring)
 //    NSLog("\(astr)")
     var view = NSTextView(frame: NSRect(x: 0, y: 0, width: 300, height: 700))
     view.textStorage?.setAttributedString(astr)

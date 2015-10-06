@@ -22,15 +22,18 @@ And the workaround presented above would be unable to convert image or table(not
 You can open `MarkdownExample.playground` to view the **example**. Or just try yourself:
 
 ```swift
+let mm = MAMarkdown()
+let astr = try mm.attributedString(markdown: yourMarkdownString)
+mm.extensions = MMMarkdownExtensions.GitHubFlavored // Use GFM extension.
 let astr = try MAMarkdown.attributedString(markdown: yourMarkdownString)
-let astr = try MAMarkdown.attributedString(markdown: yourMarkdownString, extensions: MMMarkdownExtensions.GitHubFlavored) // Use GFM extension.
 ```
 
 And it's convenient to apply your text style by create a class that conforms to `MATextAttributesProvider` to provide your attributes.
 
 ```swift
 class YourTextAttributesProvider : MATextAttributesProvider { ... }
-let astr = try MAMarkdown.attributedString(markdown: yourMarkdownString, textAttributesProvider: YourTextAttributesProvider())
+let mm = MAMarkdown(textAttributesProvider: YourTextAttributesProvider())
+let astr = try mm.attributedString(markdown: yourMarkdownString)
 ```
 
 ### TODO

@@ -71,7 +71,7 @@ class MAGenerator {
         
         for element in (document.elements as? [MMElement])! {
             if element.type == MMElementTypeHTML {
-                attributedStringFromHTML(markdown.substringWithRange(element.range))
+                astr.appendAttributedString(attributedStringFromHTML(markdown.substringWithRange(element.range)))
             } else {
                 generate(attributedString: astr, element: element, baseAttributes: attributeProvider.text)
             }
@@ -156,29 +156,37 @@ class MAGenerator {
 //        case MMElementTypeCodeBlock.rawValue:
 //            break
         case MMElementTypeEntity.rawValue:
-            astr.appendAttributedString(NSAttributedString(string: element.stringValue))
+            var entityString = element.stringValue
+            switch entityString {
+            case "&amp;": entityString = "&"
+            case "&lt;": entityString = "<"
+            case "&gt;": entityString = ">"
+            default: break
+            }
+            astr.appendAttributedString(NSAttributedString(string: entityString, attributes: newAttributes))
         default: break
         }
         
         for child in element.children as! [MMElement] {
             if child.type == MMElementTypeNone {
                 if child.range.length == 0 {
-                    astr.appendAttributedString(NSAttributedString(string: "\n"))
+                    astr.appendAttributedString(NSAttributedString(string: "\n", attributes: newAttributes))
                     // TODO: apply attributes??
                 } else {
                     let appendedString = NSAttributedString(string: NSString(string: document!.markdown).substringWithRange(child.range), attributes: newAttributes)
                     astr.appendAttributedString(appendedString)
                 }
             } else if (child.type == MMElementTypeHTML) {
-                attributedStringFromHTML(NSString(string: document!.markdown).substringWithRange(child.range))
-                // TODO: apply attributes??
+                // FIXME: The html fail to be parsed
+//                astr.appendAttributedString(attributedStringFromHTML(NSString(string: document!.markdown).substringWithRange(child.range)))
+                astr.appendAttributedString(NSAttributedString(string: NSString(string: document!.markdown).substringWithRange(child.range)))
             } else {
                 generate(attributedString: astr, element: child, baseAttributes: newAttributes)
             }
         }
         
         if newLine {
-            astr.appendAttributedString(NSAttributedString(string: "\n"))
+            astr.appendAttributedString(NSAttributedString(string: "\n", attributes: newAttributes))
         }
     }
     

@@ -33,11 +33,20 @@ let mstring = [
     "func swiftFunc()",
     "   print(\"hi\")",
     "```",
+    "",
+    "code sample:\n\n```\n<head>\n<title>page title</title>\n</head>\n```",
+    "",
+    "   func swiftFunc()",
+    "       print(\"hi\")",
+    "",
     "Unicode tests: 😄汉字",
     "This is `inline code`.",
     "",
     "This is a HTML link: <a href=\"jyhong.com\">jyhong</a>",
     "An image goes here: ![alt text][1]\n\n  [1]: http://www.google.com/intl/en_ALL/images/logo.gif",
+    "",
+    "<a href=\"jyhong.com\">line link</a>",
+    "",
     "end"
     ].joinWithSeparator("\n")
 

@@ -151,7 +151,7 @@ class SimpleTests: XCTestCase {
     
     func testCodeBlock()
     {
-        let input = "code sample:\n\n    <head>\n    <title>page title</title>\n    </head>\n"
+        let input = "code sample:\n\n```\n<head>\n<title>page title</title>\n</head>\n```"
         let expected = "<p>code sample:</p>\n\n<pre><code>&lt;head&gt;\n&lt;title&gt;page title&lt;/title&gt;\n&lt;/head&gt;\n</code></pre>\n"
         
         STAssertTransform(input, expected)

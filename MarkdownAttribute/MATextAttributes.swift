@@ -48,6 +48,7 @@ class MATextAttributes: MATextAttributesProvider {
         ps.paragraphSpacing = 12.0
         ps.defaultTabInterval = 36
         ps.baseWritingDirection = .LeftToRight
+        ps.minimumLineHeight = 14.0
         return ps
     }
     
@@ -197,7 +198,7 @@ class MATextAttributes: MATextAttributesProvider {
     }
     
     #if os(iOS)
-    var MonospaceFont: UIFont {
+    var CodeFont: MAFont {
         get {
             let size = UIFont.preferredFontForTextStyle(UIFontTextStyleBody).pointSize
             if let mfont = MAFont(name: "Menlo", size: size) {
@@ -212,18 +213,18 @@ class MATextAttributes: MATextAttributesProvider {
     var codeBlock: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFixedPitchFontOfSize(12.0)!, NSParagraphStyleAttributeName : indentedPraragraphStyle]
+                return [NSFontAttributeName : MAFont(name: "Menlo", size: 12.0)!, NSParagraphStyleAttributeName : indentedPraragraphStyle]
             #elseif os(iOS)
-                return [NSFontAttributeName : MonospaceFont, NSParagraphStyleAttributeName : indentedPraragraphStyle]
+                return [NSFontAttributeName : CodeFont, NSParagraphStyleAttributeName : indentedPraragraphStyle]
             #endif
         }
     }
     var inlineCode: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont.userFixedPitchFontOfSize(12.0)!]
+                return [NSFontAttributeName : MAFont(name: "Courier", size: 12.0)!]
             #elseif os(iOS)
-                return [NSFontAttributeName : MonospaceFont]
+                return [NSFontAttributeName : CodeFont]
             #endif
         }
     }

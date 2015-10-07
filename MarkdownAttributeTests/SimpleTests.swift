@@ -188,4 +188,12 @@ class SimpleTests: XCTestCase {
         
         STAssertTransform(input, expected)
     }
+    
+    func testMailTo()
+    {
+        let input = "email: jyhong@mail.com"
+        let expected = "email: <a href=\"mailto:jyhong@mail.com\">jyhong@mail.com</a>"
+        
+        STAssertTransform(input, expected)
+    }
 }

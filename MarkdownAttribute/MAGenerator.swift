@@ -164,6 +164,8 @@ class MAGenerator {
             default: break
             }
             astr.appendAttributedString(NSAttributedString(string: entityString, attributes: newAttributes))
+        case MMElementTypeMailTo.rawValue:
+            astr.appendAttributedString(NSAttributedString(string: element.href, attributes: newAttributes))
         default: break
         }
         
@@ -233,7 +235,16 @@ class MAGenerator {
                     attr[NSToolTipAttributeName] = t
                 }
             #endif
-            return (attr, true)
+            return (attr, false)
+        case MMElementTypeMailTo.rawValue:
+            var attr = attributeProvider.link
+            attr[NSLinkAttributeName] = NSURL(string: "mailto:"+element.href)
+            #if os(OSX)
+                if let t = element.title {
+                    attr[NSToolTipAttributeName] = t
+                }
+            #endif
+            return (attr, false)
         // code
         case MMElementTypeCodeBlock.rawValue:
             return (attributeProvider.codeBlock, true)
@@ -253,8 +264,6 @@ class MAGenerator {
         case MMElementTypeHorizontalRule.rawValue:
             return ([:], false)
         case MMElementTypeImage.rawValue:
-            return ([:], false)
-        case MMElementTypeMailTo.rawValue:
             return ([:], false)
         case MMElementTypeDefinition.rawValue:
             return ([:], false)

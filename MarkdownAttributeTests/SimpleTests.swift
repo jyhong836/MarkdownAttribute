@@ -12,13 +12,16 @@ import XCTest
 class SimpleTests: XCTestCase {
     
     private let defaultEncoding = NSUTF8StringEncoding
-    private let defaultExtension = MMMarkdownExtensions.GitHubFlavored
+//    private let defaultExtension = MMMarkdownExtensions.GitHubFlavored
+    let mm = MAMarkdown(extensions: MMMarkdownExtensions.GitHubFlavored)
     
     override func setUp() {
+        let ap = mm.textAttributesProvider as! MATextAttributes
+        ap.defaultFont = NSFont(name: "Times-Roman", size: 12.0)!
+        mm.textAttributesProvider = ap
     }
     
     func STAssertTransform(markdown: String, _ html: String, _ message: String = "fail to transform to expected") {
-        let mm = MAMarkdown(extensions: defaultExtension)
         do {
             let expected = try NSAttributedString(data: html.dataUsingEncoding(defaultEncoding)!, options: [NSDocumentTypeDocumentOption : NSHTMLTextDocumentType], documentAttributes: nil)
             let actual = try mm.attributedString(markdown: markdown)

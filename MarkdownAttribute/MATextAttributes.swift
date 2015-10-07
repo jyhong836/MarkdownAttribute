@@ -188,6 +188,12 @@ class MATextAttributes: MATextAttributesProvider {
         }
     }
     
+    var strikethrough: AttributeDict {
+        get {
+            return [NSStrikethroughStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
+        }
+    }
+    
     var indentedPraragraphStyle: NSMutableParagraphStyle {
         get {
             let style = NSMutableParagraphStyle()

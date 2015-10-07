@@ -47,6 +47,7 @@ public protocol MATextAttributesProvider {
     var strong: AttributeDict { get }
     
     var link: AttributeDict { get }
+    var strikethrough: AttributeDict { get }
     
     var codeBlock: AttributeDict { get }
     var inlineCode: AttributeDict { get }

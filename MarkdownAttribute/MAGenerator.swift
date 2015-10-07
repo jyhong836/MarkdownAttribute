@@ -227,6 +227,8 @@ class MAGenerator {
         case MMElementTypeStrong.rawValue:
             return (attributeProvider.strong, false)
             
+        case MMElementTypeStrikethrough.rawValue:
+            return (attributeProvider.strikethrough, false)
         case MMElementTypeLink.rawValue:
             var attr = attributeProvider.link
             attr[NSLinkAttributeName] = NSURL(string: element.href)
@@ -258,17 +260,17 @@ class MAGenerator {
             return ([:], true)
         case MMElementTypeParagraph.rawValue:
             return (attributeProvider.paragraph, true)
+//        case MMElementTypeEntity.rawValue: // no attributes
+//            return ([:], false)
             
-        case MMElementTypeStrikethrough.rawValue:
-            return ([:], false)
+        // TODO: to implement
         case MMElementTypeHorizontalRule.rawValue:
             return ([:], false)
         case MMElementTypeImage.rawValue:
             return ([:], false)
         case MMElementTypeDefinition.rawValue:
             return ([:], false)
-//        case MMElementTypeEntity.rawValue: // no attributes
-//            return ([:], false)
+        // table
         case MMElementTypeTable.rawValue:
             return ([:], false)
         case MMElementTypeTableHeader.rawValue:

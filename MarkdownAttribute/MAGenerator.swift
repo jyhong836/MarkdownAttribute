@@ -29,6 +29,7 @@
 #if os(OSX)
     import Cocoa
     
+    typealias MAColor = NSColor
     typealias MAFontSymbolicTraits = NSFontSymbolicTraits
     typealias MAFont = NSFont
     typealias CMUnderlineStyle = NSInteger
@@ -38,6 +39,7 @@
 #elseif os(iOS)
     import UIKit
     
+    typealias MAColor = UIColor
     typealias MAFontSymbolicTraits = UIFontDescriptorSymbolicTraits
     typealias MAFont = UIFont
     typealias CMUnderlineStyle = NSUnderlineStyle
@@ -97,10 +99,18 @@ class MAGenerator {
                     // conflict keys
                     #if os(OSX)
                         if key == NSParagraphStyleAttributeName {
+                            let newPS = combined[key] as! NSMutableParagraphStyle
+                            
                             // Combine text lists.
                             let baseLists = (value as! NSParagraphStyle).textLists
-                            let newPS = combined[key] as! NSMutableParagraphStyle
                             newPS.textLists = baseLists + newPS.textLists
+                            let baseBlocks = (value as! NSParagraphStyle).textBlocks
+                            newPS.textBlocks = baseBlocks + newPS.textBlocks
+                            
+                            // Combine headIndent
+                            newPS.headIndent += (value as! NSParagraphStyle).headIndent
+                            newPS.firstLineHeadIndent += (value as! NSParagraphStyle).firstLineHeadIndent
+                            
                             combined[key] = newPS
                         }
                     #endif
@@ -115,8 +125,7 @@ class MAGenerator {
         /// will be added to the header of item line. The count of lists 
         /// must larger than 0.
         private func listItemMarkerFromTextLists(lists: [NSTextList], number: UInt) -> String {
-            return "".stringByPaddingToLength(lists.count, withString: "\t", startingAtIndex: 0) +
-                "\(lists.last!.markerForItemNumber(Int(number))) "
+            return "\(lists.last!.markerForItemNumber(Int(number))) "
         }
     #endif
     
@@ -141,7 +150,7 @@ class MAGenerator {
             let ps = newAttributes[NSParagraphStyleAttributeName] as! NSParagraphStyle
             #if os(OSX)
                 element.parent.level++
-                astr.appendAttributedString(NSAttributedString(string: listItemMarkerFromTextLists(ps.textLists, number: element.parent.level)))
+                astr.appendAttributedString(NSAttributedString(string: listItemMarkerFromTextLists(ps.textLists, number: element.parent.level), attributes: newAttributes))
             #elseif os(iOS)
                 switch element.parent.type.rawValue {
                 case MMElementTypeBulletedList.rawValue:
@@ -209,21 +218,14 @@ class MAGenerator {
             return (attributeProvider.header(Int(element.level)), true)
             
         case MMElementTypeBulletedList.rawValue:
-            return (attributeProvider.unorderedList, true)
+            return (attributeProvider.unorderedList( element.parent != nil && (element.parent.type.rawValue == MMElementTypeListItem.rawValue) ), false)
         case MMElementTypeNumberedList.rawValue:
-            return (attributeProvider.orderedList, true)
+            return (attributeProvider.orderedList( element.parent != nil && (element.parent.type.rawValue == MMElementTypeListItem.rawValue) ), false)
         case MMElementTypeListItem.rawValue:
             return (attributeProvider.listItem, true)
             
         case MMElementTypeEm.rawValue:
-            if attributeProvider.emphasis[NSFontAttributeName] != nil {
-                return (attributeProvider.emphasis, false)
-            }
-            // TODO: add font trait
-            else {
-                return ([:], false)
-//                return (NSFontItalicTrait, false)
-            }
+            return (attributeProvider.emphasis, false)
         case MMElementTypeStrong.rawValue:
             return (attributeProvider.strong, false)
             
@@ -249,15 +251,15 @@ class MAGenerator {
             return (attr, false)
         // code
         case MMElementTypeCodeBlock.rawValue:
-            return (attributeProvider.codeBlock, true)
+            return (attributeProvider.codeBlock, false)
         case MMElementTypeCodeSpan.rawValue:
             return (attributeProvider.inlineCode, false)
             
         case MMElementTypeBlockquote.rawValue:
-            return (attributeProvider.blockQuote, true)
+            return (attributeProvider.blockQuote, false)
         // line break
         case MMElementTypeLineBreak.rawValue:
-            return ([:], true)
+            return ([:], true) // FIXME: how to linebreak?
         case MMElementTypeParagraph.rawValue:
             return (attributeProvider.paragraph, true)
 //        case MMElementTypeEntity.rawValue: // no attributes

@@ -38,8 +38,8 @@ class SimpleTests: XCTestCase {
     }
     
     func testBare() {
-        let input = "This bare input."
-        let expected = "This bare input.\n"
+        let input = "This bare input.\nsecond line"
+        let expected = "This bare input.\n\nsecond line"
         
         STAssertTransform(input, expected)
     }
@@ -112,7 +112,7 @@ class SimpleTests: XCTestCase {
     
     func testBlockquote()
     {
-        let input = "Here is a quote\n\n> Sample blockquote\n"
+        let input = "Here is a quote\n\n> Sample blockquote\n> Sample blockquote\n"
         let expected = "<p>Here is a quote</p>\n\n<blockquote>\n  <p>Sample blockquote</p>\n</blockquote>\n"
         
         STAssertTransform(input, expected)

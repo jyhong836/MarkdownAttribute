@@ -14,12 +14,16 @@ let mstring = [
     "#### header level 4",
     "##### header level 5",
     "###### header level 6",
+    "",
     "This is **strong**, and *emphasis*",
+    "This is also __strong__, a _strong_",
+    "",
+    "",
     "+ this is bullet list item 1",
     "+ this is bullet list item 2",
     "",
     "1. this is ~~numbered~~ list item 1",
-    "2. this is numbered list item 1, and a __strong__, a _strong_",
+    "2. this is numbered list item 1",
     "2. this is numbered list item 3, and a ~~strikethrough~~",
     "",
     "link: [website](jyhong.com)",
@@ -47,14 +51,19 @@ let mstring = [
     "",
     "<a href=\"jyhong.com\">line link</a>",
     "Contact me with email: jyhong@mail.com",
+    "",
+    "> a block quote",
+    "> a block quote",
+//    "",
     "end"
     ].joinWithSeparator("\n")
 
 do {
 //: Let's have a look at the effect
     let astr = try mm.attributedString(markdown: mstring)
-//    NSLog("\(astr)")
-    var view = NSTextView(frame: NSRect(x: 0, y: 0, width: 300, height: 700))
+
+    //    NSLog("\(astr)")
+    var view = NSTextView(frame: NSRect(x: 0, y: 0, width: 300, height: 1200))
     view.textStorage?.setAttributedString(astr)
 //: Let's view them in a NSTextView
     view

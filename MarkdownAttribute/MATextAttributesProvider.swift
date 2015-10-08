@@ -54,8 +54,8 @@ public protocol MATextAttributesProvider {
     
     var blockQuote: AttributeDict { get }
     
-    var orderedList: AttributeDict { get }
-    var unorderedList: AttributeDict { get }
+    func orderedList(paraentIsList: Bool) -> AttributeDict
+    func unorderedList(paraentIsList: Bool) -> AttributeDict
     var listItem: AttributeDict { get }
 
 }

@@ -45,7 +45,7 @@ class MATextAttributes: MATextAttributesProvider {
     
     var defaultParagraphStyle: NSMutableParagraphStyle {
         let ps = NSMutableParagraphStyle()
-        ps.paragraphSpacing = 12.0
+//        ps.paragraphSpacing = 12.0
         ps.defaultTabInterval = 36
         ps.baseWritingDirection = .LeftToRight
         ps.minimumLineHeight = 14.0
@@ -196,7 +196,7 @@ class MATextAttributes: MATextAttributesProvider {
     
     var indentedPraragraphStyle: NSMutableParagraphStyle {
         get {
-            let style = NSMutableParagraphStyle()
+            let style = defaultParagraphStyle //NSMutableParagraphStyle()
             style.firstLineHeadIndent = 30
             style.headIndent = 30
             return style
@@ -219,45 +219,76 @@ class MATextAttributes: MATextAttributesProvider {
     var codeBlock: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont(name: "Menlo", size: 12.0)!, NSParagraphStyleAttributeName : indentedPraragraphStyle]
+                let ps = indentedPraragraphStyle
+                let block = NSTextBlock()
+                block.backgroundColor = MAColor.lightGrayColor()
+                block.setBorderColor(MAColor.lightGrayColor())
+                block.setWidth(0.0, type: NSTextBlockValueType.AbsoluteValueType, forLayer: NSTextBlockLayer.Border)
+                block.setWidth(5.0, type: NSTextBlockValueType.AbsoluteValueType, forLayer: NSTextBlockLayer.Padding)
+                block.setContentWidth(100, type: NSTextBlockValueType.PercentageValueType)
+                ps.textBlocks = [block]
+                return [NSFontAttributeName : MAFont(name: "Menlo", size: 12.0)!, NSParagraphStyleAttributeName : ps]
             #elseif os(iOS)
-                return [NSFontAttributeName : CodeFont, NSParagraphStyleAttributeName : indentedPraragraphStyle]
+                return [NSFontAttributeName : CodeFont, NSParagraphStyleAttributeName : indentedPraragraphStyle,
+                    NSBackgroundColorAttributeName : MAColor.lightGrayColor()]
             #endif
         }
     }
     var inlineCode: AttributeDict {
         get {
             #if os(OSX)
-                return [NSFontAttributeName : MAFont(name: "Courier", size: 12.0)!]
+                return [NSFontAttributeName : MAFont(name: "Courier", size: 12.0)!,
+                    NSBackgroundColorAttributeName : MAColor.lightGrayColor()]
             #elseif os(iOS)
-                return [NSFontAttributeName : CodeFont]
+                return [NSFontAttributeName : CodeFont,
+                    NSBackgroundColorAttributeName : MAColor.lightGrayColor()]
             #endif
         }
     }
     
     var blockQuote: AttributeDict {
         get {
-            return [NSParagraphStyleAttributeName : indentedPraragraphStyle]
+            let ps =  indentedPraragraphStyle
+            let block = NSTextBlock()
+            block.backgroundColor = MAColor.lightGrayColor()
+            block.setBorderColor(MAColor.lightGrayColor())
+            block.setWidth(0.0, type: NSTextBlockValueType.AbsoluteValueType, forLayer: NSTextBlockLayer.Border)
+            block.setWidth(5.0, type: NSTextBlockValueType.AbsoluteValueType, forLayer: NSTextBlockLayer.Padding)
+            block.setContentWidth(100, type: NSTextBlockValueType.PercentageValueType)
+            ps.textBlocks = [block]
+            return [NSParagraphStyleAttributeName : ps,
+                NSFontAttributeName : defaultFontOfSize(14.0),
+            ]
         }
     }
     
-    var orderedList: AttributeDict {
-        get {
-            let ps = indentedPraragraphStyle
-            #if os(OSX)
-                ps.textLists = [NSTextList(markerFormat: "{decimal}", options: 0)]
-            #endif
-            return [NSParagraphStyleAttributeName : ps]
+    var listIndentLevel = 0
+    var orderedListMarkders = ["{decimal}.", "{lower-roman}.", "{lower-alpha}."]
+    var unorderedListMarkders = ["{disc}", "{circle}", "{square}"]
+    
+    func orderedList(paraentIsList: Bool = false) -> AttributeDict {
+        if paraentIsList {
+            listIndentLevel++
+        } else if listIndentLevel != 0 {
+            listIndentLevel = 0
         }
+        let ps = indentedPraragraphStyle
+        #if os(OSX)
+            ps.textLists = [NSTextList(markerFormat: orderedListMarkders[(listIndentLevel < orderedListMarkders.count) ? listIndentLevel : (orderedListMarkders.count - 1)], options: 0)]
+        #endif
+        return [NSParagraphStyleAttributeName : ps]
     }
-    var unorderedList: AttributeDict {
-        get {
-            let ps = indentedPraragraphStyle
-            #if os(OSX)
-                ps.textLists = [NSTextList(markerFormat: "{disc}", options: 0)]
-            #endif
-            return [NSParagraphStyleAttributeName : ps]
+    func unorderedList(paraentIsList: Bool = false) -> AttributeDict {
+        if paraentIsList {
+            listIndentLevel++
+        } else {
+            listIndentLevel = 0
         }
+        let ps = indentedPraragraphStyle
+        #if os(OSX)
+            ps.textLists = [NSTextList(markerFormat: unorderedListMarkders[(listIndentLevel < orderedListMarkders.count) ? listIndentLevel : (orderedListMarkders.count - 1)], options: 0)]
+        #endif
+        return [NSParagraphStyleAttributeName : ps]
     }
     var listItem: AttributeDict {
         get {

@@ -23,7 +23,7 @@ let mstring = [
     "+ this is bullet list item 2",
     "",
     "1. this is ~~numbered~~ list item 1",
-    "2. this is numbered list item 1",
+    "1. this is numbered list item 1",
     "2. this is numbered list item 3, and a ~~strikethrough~~",
     "",
     "link: [website](jyhong.com)",

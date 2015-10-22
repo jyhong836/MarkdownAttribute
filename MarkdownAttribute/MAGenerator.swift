@@ -213,25 +213,25 @@ class MAGenerator {
     
     /// Get attributes according to MMElement.
     private func attributesForElement(element: MMElement) -> ([String: AnyObject], newLine: Bool) {
-        switch element.type.rawValue { // TODO: Remove `.rawValue` when Swift 2.1 available.
-        case MMElementTypeHeader.rawValue:
+        switch element.type {
+        case MMElementTypeHeader:
             return (attributeProvider.header(Int(element.level)), true)
             
-        case MMElementTypeBulletedList.rawValue:
+        case MMElementTypeBulletedList:
             return (attributeProvider.unorderedList( element.parent != nil && (element.parent.type.rawValue == MMElementTypeListItem.rawValue) ), false)
-        case MMElementTypeNumberedList.rawValue:
+        case MMElementTypeNumberedList:
             return (attributeProvider.orderedList( element.parent != nil && (element.parent.type.rawValue == MMElementTypeListItem.rawValue) ), false)
-        case MMElementTypeListItem.rawValue:
+        case MMElementTypeListItem:
             return (attributeProvider.listItem, true)
             
-        case MMElementTypeEm.rawValue:
+        case MMElementTypeEm:
             return (attributeProvider.emphasis, false)
-        case MMElementTypeStrong.rawValue:
+        case MMElementTypeStrong:
             return (attributeProvider.strong, false)
             
-        case MMElementTypeStrikethrough.rawValue:
+        case MMElementTypeStrikethrough:
             return (attributeProvider.strikethrough, false)
-        case MMElementTypeLink.rawValue:
+        case MMElementTypeLink:
             var attr = attributeProvider.link
             attr[NSLinkAttributeName] = NSURL(string: element.href)
             #if os(OSX)
@@ -240,7 +240,7 @@ class MAGenerator {
                 }
             #endif
             return (attr, false)
-        case MMElementTypeMailTo.rawValue:
+        case MMElementTypeMailTo:
             var attr = attributeProvider.link
             attr[NSLinkAttributeName] = NSURL(string: "mailto:"+element.href)
             #if os(OSX)
@@ -250,38 +250,38 @@ class MAGenerator {
             #endif
             return (attr, false)
         // code
-        case MMElementTypeCodeBlock.rawValue:
+        case MMElementTypeCodeBlock:
             return (attributeProvider.codeBlock, false)
-        case MMElementTypeCodeSpan.rawValue:
+        case MMElementTypeCodeSpan:
             return (attributeProvider.inlineCode, false)
             
-        case MMElementTypeBlockquote.rawValue:
+        case MMElementTypeBlockquote:
             return (attributeProvider.blockQuote, false)
         // line break
-        case MMElementTypeLineBreak.rawValue:
+        case MMElementTypeLineBreak:
             return ([:], true) // FIXME: how to linebreak?
-        case MMElementTypeParagraph.rawValue:
+        case MMElementTypeParagraph:
             return (attributeProvider.paragraph, true)
 //        case MMElementTypeEntity.rawValue: // no attributes
 //            return ([:], false)
             
         // TODO: to implement
-        case MMElementTypeHorizontalRule.rawValue:
+        case MMElementTypeHorizontalRule:
             return ([:], false)
-        case MMElementTypeImage.rawValue:
+        case MMElementTypeImage:
             return ([:], false)
-        case MMElementTypeDefinition.rawValue:
+        case MMElementTypeDefinition:
             return ([:], false)
         // table
-        case MMElementTypeTable.rawValue:
+        case MMElementTypeTable:
             return ([:], false)
-        case MMElementTypeTableHeader.rawValue:
+        case MMElementTypeTableHeader:
             return ([:], false)
-        case MMElementTypeTableHeaderCell.rawValue:
+        case MMElementTypeTableHeaderCell:
             return ([:], false)
-        case MMElementTypeTableRow.rawValue:
+        case MMElementTypeTableRow:
             return ([:], false)
-        case MMElementTypeTableRowCell.rawValue:
+        case MMElementTypeTableRowCell:
             return ([:], false)
         default:
             return ([:], false)
